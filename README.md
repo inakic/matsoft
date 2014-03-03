@@ -1,4 +1,4 @@
 matsoft
 =======
 
-Matematički softver
+Source kod od predavanja za kolegij Matematički softver
