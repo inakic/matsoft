@@ -1,0 +1,600 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+
+\usepackage{tikz}
+
+\usepackage[croatian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{fancybox}
+\usepackage{wasysym}
+\usepackage{listings}
+\usepackage{multirow}
+
+\newcommand{\A}[1]{#1&\texttt{\string#1}\hspace*{1ex}}
+
+\usetikzlibrary{arrows,shapes,positioning}
+
+\hypersetup{plainpages=false,bookmarksopen,linkcolor=violet,%
+pdfpagemode=FullScreen,colorlinks=true%
+}
+\hypersetup{pdftitle={Uvod i osnove}}
+\hypersetup{baseurl={web.math.pmf.unizg.hr/nastava/matsoft/}}
+\hypersetup{pdfsubject={LaTeX}}
+\hypersetup{pdfauthor={Ivica Nakić}}
+
+\lstset{language=[LaTeX]TeX,extendedchars=true,backgroundcolor=\color{gray!20},identifierstyle=,stringstyle=\rmfamily,%
+columns=flexible,showstringspaces=false,keywordstyle=\color{violet}\bfseries}
+
+\lstset{literate=%
+{Š}{{\v{S}}}1
+{Đ}{{\Dj{}}}1
+{Č}{{\v{C}}}1
+{Ć}{{\'C}}1
+{Ž}{{\v{Z}}}1
+{š}{{\v{s}}}1
+{Đ}{{\dj{}}}1
+{č}{{\v{c}}}1
+{ć}{{\'c}}1
+{ž}{{\v{z}}}1
+}
+
+\title{\LaTeX --- 1.~Uvod i osnove}
+\subtitle{}
+\author{Ivica Nakić \\ \texttt{nakic@math.hr}}
+\institute[PMF--MO]{Matematički odsjek Prirodoslovno--matematičkog fakulteta}
+\date[2013/14]{Matematički software, 2013/14}
+
+
+
+\begin{document}
+
+\begin{frame}
+  \maketitle  
+\end{frame}
+
+\begin{frame}
+\frametitle{Pregled}
+  \tableofcontents  
+\end{frame}
+
+\section{Uvod}
+
+\begin{frame}
+\frametitle{Što je \LaTeX{}?}
+\LaTeX{} je slovoslagarski program, nastao kao proširenje programa \TeX{} kojeg je napisao Donald Knuth.
+
+Što je slovoslagarski program?
+
+Proces pripravljanja dokumenta na računalu se sastoji od četiri faze:
+
+\begin{itemize}
+\item tekst se unosi u računalo
+\item unešeni tekst se formatira u retke, paragrafe i stranice
+\item izlazni tekst se prikazuje na naslonu računala
+\item dokument se ispisuje
+\end{itemize}
+
+U većini programa za procesiranje teksta (eng.~\textit{word processors}) te četiri faze su integrirane. Ali \TeX{} služi samo za izvršavanje druge faze.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Mali primjer}
+\LaTeX{} u akciji!
+
+Jedan (vrlo) kratak dokument formatiran u \LaTeX u.
+
+\begin{lstlisting}
+\documentclass{article}
+\begin{document}
+Ovo je moj \emph{prvi} dokument 
+u \LaTeX u.
+\end{document}
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Zašto \LaTeX{}?}
+Ali čemu toliki trud? Zašto jednostavno ne koristiti neki \emph{word processor}?
+
+Odgovor je dao sam autor D.~Knuth: svrha \TeX a (a onda i \LaTeX a) je omogućiti kreiranje \textcolor{red}{lijepih} dokumenata, naročito onih koji sadrže \textcolor{red}{puno Matematike}. 
+
+Vrlo je teško, katkada nemoguće, producirati kompleksne matematičke formule pomoću programa za procesiranje teksta. Ali čak i u slučaju običnog teksta, ukoliko želite da vaš dokument izgleda \emph{stvarno lijepo}, \LaTeX{} je prirodan odabir.
+\end{frame}
+
+\begin{frame}[<+->]
+\frametitle{Važni linkovi}
+\begin{itemize}
+      \item \url{http://www.latex-project.org/}
+      \item \url{http://www.tug.org/texlive/}
+      \item \url{http://www.ctan.org/}
+    \end{itemize}    
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Ostali linkovi}
+\begin{itemize}
+      \item \url{http://miktex.org/}
+      \item \url{http://texstudio.sourceforge.net/}
+      \item \url{http://www.xm1math.net/texmaker/}
+      \item \url{http://www.lyx.org/} 
+      \item \url{http://www.texniccenter.org/}
+      \item \url{https://www.sharelatex.com/}
+      \item \url{https://www.writelatex.com/}
+      \item \url{http://fiduswriter.org/}
+      \item \url{http://tex.stackexchange.com/}
+      \item \url{http://www.texample.net/}
+      \item \url{http://www.latextemplates.com/}
+      \item \url{http://www.tug.org/interest.html}
+      \item \url{http://www.stdout.org/~winston/latex/latexsheet-a4.pdf}
+      \item \url{webdemo.visionobjects.com/equation.html?locale=default}
+    \end{itemize}    
+
+\end{frame}
+
+
+\section{Jednostavno slovoslagarstvo}
+
+
+\begin{frame}
+\frametitle{Praznine}
+\begin{itemize}
+\item Paragrafi se odvajaju praznim retkom. Prva riječ u paragrafu je malo uvučena. Ukoliko to želimo spriječiti koristimo naredbu \textcolor{violet}{\textbackslash noindent}. 
+\item Prelazak u novi red u editoru \textcolor{red}{ne znači} i prelazak u novi red u dokumentu. Razmaci se također ignoriraju u \LaTeX u. U novi red (ukoliko odluku ne želimo prepustiti \LaTeX u) možemo preći pomoću \textcolor{violet}{\textbackslash \textbackslash} ili \textcolor{violet}{\textbackslash newline}.
+\item Prelazak na novu stranicu (ukoliko odluku ne želimo prepustiti \LaTeX u) se postiže pomoću naredbe \textcolor{violet}{\textbackslash newpage}.
+\item Točka koja ne dolazi poslije velikog slova označava kraj rečenice. To pravilo možemo promijeniti pomoću naredbi \textcolor{violet}{\textbackslash @} i \textcolor{violet}{\textbackslash\textvisiblespace}.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Naše stvari}
+\begin{itemize}
+\item Hrvatske inačice navodnika: \glqq navodnici'' i \guillemotleft navodnici\guillemotright se dobijaju na sljedeći način:
+\begin{center}
+\textcolor{violet}{\textbackslash glqq navodnici''} \\
+i\\
+\textcolor{violet}{\textbackslash guillemotleft navodnici \textbackslash guillemotright}
+\end{center}
+Ovdje \textcolor{violet}{''} označavaju dva jednostruka navodnika.
+\item Navodnici u engleskom pismu: ``quotes'' su dobijeni pomoću dva jednostruka navodnika \textcolor{violet}{`} i dva jednostruka navodnika \textcolor{violet}{'} 
+\item Hrvatski dijakritički znakovi se mogu unositi direktno preko tipkovnice ako podesimo kodiranje, ili pomoću naredbi \textcolor{violet}{\textbackslash 'c} za slovo ć, \textcolor{violet}{\textbackslash  v c} za slovo č, \textcolor{violet}{\textbackslash v ž} za slovo ž, \textcolor{violet}{\textbackslash v s} za slovo š, te \textcolor{violet}{\textbackslash dj} za slovo đ. I dijakritičke znakove iz ostalih pisama možemo slično unositi npr. Schr\"odinger. 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Crtice \& specijalni znakovi}
+Crtice: postoje tri vrste \textcolor{violet}{-, --, ---}. Prva služi za rastavljanje slogova (hiphenaciju), druga za slijedove, treća za komentare. 
+
+\textcolor{green}{X-zrake se diskutiraju na stranicama 221--225 treće knjige --- posvećene elektromagnetskim valovima.}
+
+Unos: \textcolor{violet}{-}, \textcolor{violet}{-\ -}, \textcolor{violet}{-\ -\ -}.
+
+\pause
+
+Postoji deset specijalnih znakova koji su dijelovi \LaTeX{} naredbi i koje moramo drugačije unositi. To su:
+
+\begin{center}
+\begin{small}
+  \begin{tabular}{|cl|cl|}
+    \hline
+    \rule{0pt}{12pt}\A{\textasciitilde}  & \A{\&}\\ 
+    \A{\#}               & \A{\_}             \\
+    \A{\$}               & \A{\textbackslash} \\
+    \A{\%}               & \A{\{}             \\
+    \A{\textasciicircum} & \A{\}}             \\[3pt]
+    \hline
+  \end{tabular}
+\end{small}
+\end{center}
+
+\pause
+
+Komentari se unose tako da se stave između dva znaka \%. Komentari se mogu protezati u više redaka.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Pozicioniranje teksta}
+\tikzstyle{na} = [baseline=-.5ex]
+\begin{flushleft}
+\tikz[na,remember picture]{ 
+\node[fill=blue!20,ellipse,anchor=base] (a) {4. travnja 2012.};
+}
+\end{flushleft}
+  \begin{center}
+    \tikz[na,remember picture]{ 
+    \node[fill=blue!20,ellipse,anchor=base] (b) {\TeX nički Institut};
+    }
+\\          
+          Certifikat
+  \end{center}
+
+  \noindent Potvrđuje se da je Pero Perić uspješno pohađao kurs na ovom Institutu i da je 
+certificiran \TeX ničar.
+  \begin{flushright}
+    \tikz[na,remember picture]{ 
+    \node[fill=blue!20,ellipse,anchor=base] (c) {Direktor \TeX ničkog Instituta};
+    }
+  \end{flushright}
+\onslide<2->{
+Naredbe, tj. okoline su \textcolor{violet}{\textbackslash begin\{\smiley\} ... \textbackslash end\{\smiley\}} gdje je \\
+\textcolor{violet}{\smiley} $=$
+\tikz[baseline,remember picture] \node[anchor=base] (d) {\textcolor{violet}{flushleft},};
+\tikz[baseline,remember picture] \node[anchor=base] (f) {\textcolor{violet}{center},};
+\tikz[baseline,remember picture] \node[anchor=base] (e) {\textcolor{violet}{flushright}.};
+}
+
+\begin{tikzpicture}[remember picture,overlay]
+  \path[->,red,very thick]<2-> (a) edge [bend right] (d);
+  \path[->,red,very thick]<2-> (b) edge (f);
+  \path[->,red,very thick]<2-> (c) edge [bend left] (e);
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fontovi}
+\setbeamertemplate{itemize item}{\RIGHTarrow}
+\begin{itemize}
+\item \textmd{\textbackslash textmd medium}
+\item \textbf{\textbackslash textbf boldface}
+\item \textit{\textbackslash textit italic}
+\item \textup{\textbackslash textup upright}
+\item \textsl{\textbackslash textsl slanted} 
+\item \textsc{\textbackslash textsc small cap}
+\item \textrm{\textbackslash textrm roman}
+\item \textsf{\textbackslash textsf sans erif}
+\item \texttt{\textbackslash texttt typewriter}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fontovi}
+Naravno, možemo mijenjati i fontove, što se najlakše može raditi s \mbox{X\lower0.5ex\hbox{\kern-0.15em\reflectbox{E}}\kern-0.1em\LaTeX}om ili 
+Lua\LaTeX{}om. Pri kompajliranju tada treba koristiti odgovarajući program \texttt{xelatex} odnosno \texttt{lualatex}.   
+
+\begin{lstlisting}
+\documentclass[12pt]{article}
+\usepackage[croatian]{babel}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{fontspec}
+\defaultfontfeatures{Mapping=tex-text}
+\setmainfont[Ligatures={Common}]{Hoefler Text}  
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Veličina slova}
+\begin{itemize}
+\item \tiny{\textbackslash tiny}
+\item \scriptsize{\textbackslash scriptsize}
+\item \footnotesize{\textbackslash footnotesize}
+\item \small{\textbackslash small}
+\item \normalsize{\textbackslash normalsize}
+\item \large{\textbackslash large}
+\item \Large{\textbackslash Large}
+\item \LARGE{\textbackslash LARGE}
+\item \huge{\textbackslash huge}
+\item \Huge{\textbackslash Huge}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Dekoracije i razmaci}
+\begin{itemize}
+\item \underline{\textbackslash underline}
+\item \frame{\textbackslash frame}
+\item \fbox{\textbackslash fbox}
+\item \textbackslash raisebox \raisebox{1ex}{gore} ili \raisebox{-1ex}{dolje}
+\item a možemo i ovo \shadowbox{shadowbox}
+\item ili ovo \Ovalbox{Ovalbox}
+\item ili ovo \rotatebox{-25}{\fbox{rotatebox}}
+\end{itemize}
+\setbeamertemplate{itemize item}[default]
+Za zadnje tri kutije potrebno je uključiti paket \textcolor{violet}{fancybox}.
+
+\pause
+
+Razmaci među retcima: \textbackslash bigskip, \textbackslash medskip, \textbackslash smallskip.
+
+\end{frame}
+
+\section{Struktura dokumenta}
+
+\begin{frame}[<+->]
+\frametitle{Struktura dokumenta}
+\begin{itemize}
+\item \textcolor{orange}{Zaglavlje}
+\begin{itemize}
+\item \textbackslash documentclass[\textcolor{brown}{opcije}]\{\textcolor{brown}{klase}\}
+\item \textcolor{brown}{opcije}: veličina fonta (\textcolor{brown}{10pt}, \textcolor{brown}{11pt}, \textcolor{brown}{12pt}), veličina papira(\textcolor{brown}{a4paper}, \textcolor{brown}{letterpaper}, \textcolor{brown}{a5paper}), jednostupčani dokument (\textcolor{brown}{onecolumn} --- podrazumijevana vrijednost), dvostupčani dokument (\textcolor{brown}{twocolumn}), jednostrano (\textcolor{brown}{oneside}), dvostrano (\textcolor{brown}{twoside}), ...
+\item \textcolor{brown}{klase}: \textcolor{brown}{book}, \textcolor{brown}{report}, \textcolor{brown}{article}, \textcolor{brown}{letter}, ...
+\item \textbackslash usepackage[\textcolor{brown}{opcije}]\{\textcolor{brown}{paket}\}
+\item \textbackslash pagestyle\{\textcolor{brown}{opcije}\} --- opcije su npr. \textcolor{brown}{plain},\textcolor{brown}{empty},...
+\end{itemize}
+\item \textcolor{orange}{Tijelo}
+
+\textbackslash begin\{document\} ...\textbackslash end\{document\}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Naslov}
+Jednostavan primjer:
+\begin{lstlisting}
+\documentclass{article}
+\usepackage[croatian]{babel}
+\usepackage[croatian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\title{Naslov}
+\author{Ja}
+\date{danas}
+
+\begin{document}
+
+\maketitle
+
+Neke umotvorine\ldots
+
+\end{document}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Naslov 2}
+Kako postići da naslov bude na posebnoj stranici? Maknuli smo i naredbu \textcolor{violet}{\textbackslash date}.
+\begin{lstlisting}
+\documentclass[titlepage]{article}
+\usepackage[croatian]{babel}
+\usepackage[croatian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\title{Naslov}
+\author{Ja}
+%\date{danas}
+
+\begin{document}
+
+\maketitle
+
+Neke umotvorine\ldots
+
+\end{document}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Autor(i)}
+Što ukoliko ima više autora? Gdje dolaze podaci o adresi, web stranici, e-mailu?
+
+Za sve to služi naredba \textcolor{violet}{\textbackslash author}. Primjer:
+\begin{lstlisting}
+\author{Autor 1 \\
+Adresa\\
+E-mail\\
+\and
+\Autor 2\\
+Adresa\\
+E-mail\\
+Institucija}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[<+->]
+\frametitle{Podjela dokumenta}
+\begin{itemize}
+\item \textbf{Sažetak} stavljamo poslije naslova. Okolina u kojoj pišemo sažetak je \textcolor{violet}{abstract}
+\item Dokument obično dijelimo na dijelove, poglavlja, sekcije, podsekcije, ... Odgovarajuće naredbe u \LaTeX u su \textcolor{violet}{\textbackslash part}, \textcolor{violet}{\textbackslash chapter} --- (samo za klase \textcolor{violet}{book} i \textcolor{violet}{report}), \textcolor{violet}{\textbackslash section} i \textcolor{violet}{\textbackslash subsection}.
+
+Primjer je npr. \textcolor{violet}{\textbackslash section\{Naslov sekcije\}}.
+\item Dijelovi dokumenta će automatski biti numerirani. Ukoliko npr. želite nenumeriranu sekciju koristite 
+\textcolor{violet}{\textbackslash section*}.  
+\item Za još finiju podjelu postoje i \textcolor{violet}{\textbackslash paragraph} i 
+\textcolor{violet}{\textbackslash subparagraph}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sadržaj}
+
+\LaTeX sam vodi brigu o sadržaju, te je dovoljno na odgovarajuće mjesto (gdje želimo staviti sadržaj) staviti naredbu \textcolor{violet}{\textbackslash tableofcontents}. 
+
+Da bi smo bili sigurni da sadržaj odgovara trenutnom stanju dokumenta, trebamo dvaput \LaTeX irati dokument.
+
+Poglavlja, sekcije, \ldots koje smo označili sa zvjezdicom ne ulaze u sadržaj. Ukoliko želimo upisati u sadržaj nešto što \LaTeX ne radi 
+automatski (kao npr.\ \textcolor{violet}{\textbackslash chapter*\{Naslov\}}), odmah poslije ove naredbe stavimo (u slučaju gornjeg primjera):
+
+\textcolor{violet}{\textbackslash addcontentsline\{toc\}\{chapter\}\{\textbackslash numberline\{\}Naslov\}}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Nabrajanje}
+Numerirana lista se formatira pomoću okoline \textcolor{violet}{enumerate}. Svaki element list označavmo s naredbom \textcolor{violet}{\textbackslash item}. Primjer:
+\begin{lstlisting}
+\begin{enumerate}
+\item Linearna algebra 1
+\item Linearna algebra 2
+\item Elementarna matematika 1
+\item Elementarna matematika 2
+\end{enumerate}
+\end{lstlisting}
+Naravno, numerirane liste možemo ugniježđavati. U prvom nivou numeracija je 1, 2, ..., u drugom (a), (b), (c), ..., u trećem i, ii, iii, ...
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Liste}
+Ukoliko ne želimo numerirati liste, koristimo okolinu \textcolor{violet}{itemize}. Sintaksa je ista kao i za numeriranu listu. 
+
+Ukoliko želimo kreirati listu a--la indeks pojmova, koristimo okolinu \textcolor{violet}{description}. Primjer:
+\begin{lstlisting}
+\begin{description}
+\item[slon] veliki sisavac\ldots
+\item[Mac OS X] operativni sustav\ldots 
+\item[nogomet] sport\ldots
+\end{description}
+\end{lstlisting}
+U okolinama \textcolor{violet}{itemize} i \textcolor{violet}{enumerate} možemo promijeniti znak ispred elementa. 
+\end{frame}
+
+\begin{frame}[<+->]
+\frametitle{Okoline za...}
+\begin{itemize}
+\item Ukoliko želimo u dokument staviti citat koristimo okolinu \textcolor{violet}{quote}.
+\item Ukoliko želimo u dokument staviti duži citat (duži od jednog paragrafa) koristimo okolinu 
+ \textcolor{violet}{quotation}.
+\item Ako unosimo tekst pjesme, prava okolina za to je \textcolor{violet}{verse}. U toj okolini \LaTeX{} ne prelazi u novi red sam, nego mi sami moramo eksplicitno prijeći u novi red s dvije obrnute kose crte \textcolor{violet}{\textbackslash\textbackslash}. U novu strofu prelazimo pomoću jednog praznog retka.
+\item Ako želite da se unešeni tekst prikaže točno onako kako je unesen (za unos npr. programskog k\^oda), koristimo okolinu \textcolor{violet}{lstlisting} iz paketa \texttt{listings}. Ako još usto želimo da se praznine u tekstu fizički obilježe, potrebno je koristiti okolinu \textcolor{violet}{lstlisting*}. 
+
+Druga opcija je paket \texttt{minted}.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Fusnote}
+Unos fusnota je vrlo jednostavan\footnote{Ova fusnota je unešena na sljedeći način:\\
+...jednostavan\textbackslash footnote\{Ova fusnota je...\}}
+
+Fusnotu stavljamo odmah poslije riječi na koju se odnosi.\footnote{
+Ukoliko se fusnota odnosi na rečenicu ili paragraf, fusnotu stavljamo odmah poslije točke. }
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tablice}
+U \LaTeX u tablice kreiramo pomoću okoline \textcolor{violet}{tabular}. Jedan primjer tablice:
+\begin{lstlisting}
+\begin{tabular}{ll}
+\textbf{Ime} & \textbf{Adresa} \\
+Pero Perić & Kozji put 16B \\
+Ivo Ivić &  Pod lipom bb \\
+Mare Marić & Zelena obala 3 \\
+\end{tabular}
+\end{lstlisting}
+Znak \textcolor{violet}{\&} služi da odijelljivanje elemenata u retku. Naravno, \textcolor{violet}{\textbackslash\textbackslash} služi za prelazak u novi red.
+
+Opcije \textcolor{violet}{ll} označavaju pozicioniranje teksta u stupcima. Oznake:
+\begin{tabular}{ll}
+\textcolor{violet}{l} & lijevo \\
+\textcolor{violet}{c} & centrirano \\
+\textcolor{violet}{r} & desno 
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tablice 2}
+Možemo odijeliti stupce i retke linijama:
+\begin{lstlisting}
+\begin{tabular}{|c|c|} \hline
+\textbf{Ime} & \textbf{Adresa} \\ \hline
+Pero Perić & Kozji put 16B \\ \hline
+Ivo Ivić &  Pod lipom bb \\ \hline
+Mare Marić & Zelena obala 3 \\ \hline
+\end{tabular}
+\end{lstlisting}
+
+Rezultat:
+\begin{tabular}{|c|c|} \hline
+\textbf{Ime} & \textbf{Adresa} \\ \hline
+Pero Perić & Kozji put 16B \\ \hline
+Ivo Ivić &  Pod lipom bb \\ \hline
+Mare Marić & Zelena obala 3 \\ \hline
+\end{tabular}
+
+\textcolor{violet}{\textbackslash hline} nam daje vodoravne linije, a okomite linije smo dobili zbog \textcolor{violet}{\{|c|c|\}}. Naravno \textcolor{violet}{c}-ovima smo centrirali imena i adrese. 
+\end{frame}
+
+\begin{frame}
+\frametitle{Tablice 3}
+U \LaTeX u se mogu kreirati jednstavno i kompliciranije tablice, kao što je ova:
+ \renewcommand{\multirowsetup}{\centering}
+\begin{center}
+\begin{tabular}{|l|r|r|}
+    \hline
+    \multirow{3}{1.5cm}{Planet}   
+            & \multicolumn{2}{p{3.5cm}|}%
+                 {\centering Udaljenost od sunca \\ (milijuni km)}\\
+    \cline{2-3}
+            & \multicolumn{1}{c|}{Maksimum}    
+                     & \multicolumn{1}{c|}{Minimum}\\
+    \hline
+    Merkur & 69.4   & 46.8\\
+    Venera   & 109.0  & 107.6\\
+    Zemlja   & 152.6  & 147.4\\
+    Mars    & 249.2  & 207.3\\
+    Jupiter & 817.4  & 741.6\\
+    Saturn  & 1512.0 & 1346.0\\
+    Uran  & 3011.0 & 2740.0\\
+    Neptun & 4543.0 & 4466.0\\
+    \hline
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Tablice 4}
+Prethodna tablica je kreirana koristeći paket \textcolor{violet}{multirow}. 
+
+Postoje još mnogi drugi paketi koji olakšavaju kreiranje kompleksnih tablica: \textcolor{violet}{longtable}, 
+ \textcolor{violet}{tabularx},  \textcolor{violet}{dcolumn},  \textcolor{violet}{delarray},  \textcolor{violet}{hhline},...
+
+Postoje još neke standardne okoline za kreiranje tabličnih podataka, kao što je  \textcolor{violet}{tabbing}. Ali njima se nećemo baviti. 
+
+\LaTeX{} tablice se mogu generirati i online, pomoću web stranice \url{http://www.tablesgenerator.com/}.
+
+\end{frame}
+
+\section{Klase dokumenata}
+
+\begin{frame}[fragile]
+\frametitle{Pisanje pisama}
+Kao primjer nestandardne klase dokumenata, pokazat ćemo kako se koristi klasa za formatiranje pisama  \textcolor{violet}{letter}. Evo jednog tipičnog primjera:
+\begin{lstlisting}
+\documentclass[a4paper,12pt]{letter}
+\usepackage[croatian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\begin{document}
+\begin{letter}{Dr. Strogi Nastavnik\\
+         PMF--MO\\
+         Bijenička cesta 30\\
+         10 000 Zagreb}
+\address{S.C. Cvjetno naselje\\
+             Soba 125/3\\
+       Zagreb}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Nastavak pisma}
+\begin{lstlisting}
+\opening{Poštovani,}
+molim Vas da mi dodijelite drugi potpis 
+iz kolegija Računarski praktikum 3.
+\signature{Ivica Mali\\
+                Student}
+\closing{Sa štovanjem,}
+\encl{Indeks}
+\end{letter}
+\end{document}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ostale zanimljive klase}
+\begin{center}
+  Beamer, memoir, todonotes, \ldots.
+\end{center}    
+
+\end{frame}
+
+\end{document}
