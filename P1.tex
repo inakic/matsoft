@@ -41,13 +41,31 @@ columns=flexible,showstringspaces=false,keywordstyle=\color{violet}\bfseries}
 {ž}{{\v{z}}}1
 }
 
-\title{\LaTeX --- 1.~Uvod i osnove}
+
+\title{\LaTeX{} --- Uvod i osnove}
 \subtitle{}
 \author{Ivica Nakić \\ \texttt{nakic@math.hr}}
 \institute[PMF--MO]{Matematički odsjek Prirodoslovno--matematičkog fakulteta}
 \date[2013/14]{Matematički software, 2013/14}
 
 
+% naredbe koje se koriste u prezentaciji
+\newcommand{\vek}{(x_1,\ldots,x_n)}
+\newcommand{\veki}[1]{(#1_1,\ldots,#1_n)}
+\newcommand{\vekii}[2]{(#1_1,\ldots,#1_#2)}
+\newcommand{\vazno}[1]{\textbf{#1}}
+\DeclareMathOperator{\tg}{tg}
+\DeclareMathOperator*{\esup}{ess\;sup}
+\newcommand{\mvek}{\ensuremath{(x_1,\ldots,x_n)}}
+
+% okoline za teoreme koje se koriste u prezentaciji
+\newtheorem{thm}{Teorem}
+\newtheorem*{rol}{Rolleov teorem}
+\newtheorem{cor}[thm]{Korolar}
+\theoremstyle{remark}
+\newtheorem{slutnja}{Slutnja}
+\theoremstyle{definition}
+\newtheorem{dfn}[slutnja]{Definicija}
 
 \begin{document}
 
@@ -594,6 +612,264 @@ iz kolegija Računarski praktikum 3.
 \begin{center}
   Beamer, memoir, todonotes, \ldots.
 \end{center}    
+
+\end{frame}
+
+\section{Naredbe}
+
+\begin{frame}[fragile]
+\frametitle{Naredbe}
+U  \LaTeX u možemo definirati nove naredbe koristeći naredbu \textcolor{violet}{\textbackslash newcommand}. Osnovna sintaksa je 
+\begin{lstlisting}
+\newcommand{ime_naredbe}{kod} 
+\end{lstlisting}
+
+Primjer je 
+
+\begin{lstlisting}
+\newcommand{\vek}{(x_1,\ldots,x_n)}
+\end{lstlisting}
+
+Sada k\^od \$\textbackslash vek\$ daje: $\vek$.
+
+Naravno, isti efekt se lako postigne i definiranjem makroa u editoru, što je katkad i transparentnije rješenje. Naredba može imati i ulazne parametre. Sintaksa je 
+\begin{lstlisting}
+\newcommand[n]{ime_naredbe}{kod} 
+\end{lstlisting}
+gdje je n broj parametara koje u k\^odu pozivamo pomoću \#1,...,\#n.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Naredbe 2}
+Primjeri:
+\begin{small}
+\begin{lstlisting}
+\newcommand{\veki}[1]{(#1_1,\ldots,#1_n)}
+\newcommand{\vekii}[2]{(#1_1,\ldots,#1_#2)}
+\end{lstlisting}
+\end{small}
+Kako ih koristimo? Npr. 
+\begin{lstlisting}
+\[\veki{\alpha}=\vekii{\beta}{m}\]
+\end{lstlisting}
+nam daje
+
+\[\veki{\alpha}=\vekii{\beta}{m}\]
+
+Koji put je zgodno definirati novu naredbu da bismo logički označili tekst, npr. 
+\begin{lstlisting}
+\newcommand{\vazno}[1]{\textbf{#1}}
+\end{lstlisting}
+nam omogućava da pišemo
+\begin{lstlisting}
+\vazno{Ovo je važno}
+\end{lstlisting}
+da bi smo dobili:
+\vazno{Ovo je važno}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Naredbe 3}
+U slučaju da želimo definirati niovi matematički operator, na raspolaganju nam je naredba \textcolor{violet}{\textbackslash DeclareMathOperator}. Npr.
+\begin{lstlisting}
+\DeclareMathOperator{\tg}{tg}
+\end{lstlisting}
+nam omogućava da pišemo \textcolor{violet}{\$ \textbackslash tg x=\textbackslash sin x / \textbackslash cos x\$}: $ \tg x=\sin x / \cos x$. Slično
+\begin{lstlisting}
+\[ \|f\|_{\infty}=
+\esup_{x\in\mathbb{R}} |f(x)| \]
+\end{lstlisting}
+nam daje
+\[ \|f\|_{\infty}=
+\esup_{x\in\mathbb{R}} |f(x)| \]
+ukoliko smo u zaglavlje stavili
+\begin{lstlisting}
+\DeclareMathOperator*{\esup}{ess\;sup}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Naredbe 4}
+Nove naredbe možemo definirati bilo gdje u dokumentu, ali je \textcolor{red}{dobra} konvencija da to napravimo u zaglavlju.
+
+Ukoliko napišemo \textcolor{violet}{\textbackslash vek} izvan matematičkog teksta, pri prevođenju će nam biti javljena greška. Ali ukoliko modificiramo malo našu naredbu tako da glasi:
+\begin{lstlisting}
+\newcommand{\vek}
+{\ensuremath{(x_1,\ldots,x_n)}}
+\end{lstlisting}
+onda možemo pisati i \textcolor{violet}{\$\textbackslash vek\$} i \textcolor{violet}{\textbackslash vek}.
+
+Postoji i naredbe \textcolor{violet}{\textbackslash operatorname} i \textcolor{violet}{\textbackslash operatorname*} 
+koje omogućavaju definiranje binarnih operatora.
+
+Također postoji i naredba \textcolor{violet}{\textbackslash mathop} koja je analogon naredbama \textcolor{violet}{\textbackslash mathrel} i \textcolor{violet}{\textbackslash mathbin}.
+\end{frame}
+
+\section{Teoremi i slične okoline} % (fold)
+\label{sec:teoremi}
+
+\begin{frame}[fragile]
+\frametitle{\textcolor{violet}{\textbackslash newtheorem}}
+Posredstvom naredbe \textcolor{violet}{\textbackslash newtheorem} iz paketa \textcolor{violet}{amsthm} omogućeno je kreiranje okolina za unos teorema, propozicija i sličnih konstrukata. Osnovna sintaksa  je 
+\begin{lstlisting}
+\newtheorem{ime_okoline}{ime_konstrukta}
+\end{lstlisting}
+Na primjer:
+\begin{lstlisting}
+\newtheorem{thm}{Teorem}
+\end{lstlisting}
+omogućava unos teorema na sljedeći način:
+\begin{lstlisting}
+\begin{thm}
+Evo jednog teorema.
+\end{thm}
+\end{lstlisting}
+Rezultat je:
+{\color{brown}
+\begin{thm}
+Evo jednog teorema.
+\end{thm}
+}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\textcolor{violet}{\textbackslash newtheorem} 2}
+Naredba \textcolor{violet}{\textbackslash newtheorem*} služi za unos nenumeriranih okolina. 
+{\color{brown}
+\begin{rol}
+Ovo je Rolleov teorem.
+\end{rol}
+}
+Prethodni ispis smo dobili tako da smo u zaglavlje dokumenta stavili
+\textcolor{violet}{\textbackslash newtheorem*\{rol\}\{Rolleov teorem\}}, a onda u dokument unijeli:
+\begin{lstlisting}
+\begin{rol}
+Ovo je Rolleov teorem.
+\end{rol}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{\textcolor{violet}{\textbackslash newtheorem} 3}
+Ovako kreirane okoline primaju i opcionalni argument: Npr.
+{\color{brown}
+\begin{rol}[Ne baš]
+Ovo je Rolleov teorem.
+\end{rol}
+}
+ je dobijeno tako da smo umjesto \textcolor{violet}{\textbackslash begin\{rol\}} stavili 
+\textcolor{violet}{\textbackslash begin\{rol\}[Ne baš]}.
+
+Predefinirano ponašanje ovih okolina je da svaka od njih ima zasebnu numeraciju.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tipovi okolina}
+Ukoliko želimo da npr. korolari dijele numeraciju zajedno s teoremima definiramo
+\begin{lstlisting}
+\newtheorem{cor}[thm]{Korolar}
+\end{lstlisting}
+Efekt je 
+\textcolor{violet}{
+\begin{cor}
+Evo prvog korolara.
+\end{cor}
+}
+Postoje tri osnovna tipa okolina: \textcolor{violet}{plain} (predefinirana), \textcolor{violet}{definition} i \textcolor{violet}{remark}.
+Naravno, možemo i sami definirati izgled, ukoliko nam ova tri tipa nisu dovoljna. Npr. ukoliko želimo da slutnje budu tipa \textcolor{violet}{remark} a definicije tipa \textcolor{violet}{definition}, k\^od je:
+\begin{lstlisting}
+\theoremstyle{remark}
+\newtheorem{slutnja}{Slutnja}
+\theoremstyle{definition}
+\newtheorem{dfn}[slutnja]{Definicija}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Tipovi okolina}
+Primjena:
+{\color{brown}
+\begin{slutnja}
+Slutnja.
+\end{slutnja}
+\begin{dfn}
+Definicija.
+\end{dfn}
+}    
+Postoje još mnoge naredbe u paketu \textcolor{violet}{amsthm}. Npr. ukoliko želimo da numeracija dolazi ispred imena, dovoljno je u zaglavlje (prije definicije okoline) staviti naredbu \textcolor{violet}{\textbackslash swapnumbers}.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\textcolor{violet}{proof}}
+Također, paket \textcolor{violet}{amsthm} definira okolinu \textcolor{violet}{proof} za unos dokaza:
+\begin{proof}
+Dokaz.
+\end{proof}
+\begin{lstlisting}
+\begin{proof}
+Dokaz.
+\end{proof}
+\end{lstlisting}
+\begin{block}{}
+Piše \textcolor{brown}{dokaz} jer imamo uključen paket \textcolor{violet}{babel} s opcijom \textcolor{violet}{croatian}!
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Referenciranje}
+Ove okoline (kao i sve druge) možemo referencirati pomoću naredbe \textcolor{violet}{\textbackslash label}, koju stavljamo neposredno poslije \textcolor{violet}{\textbackslash begin\{...\}}. 
+
+Naredbu \textcolor{violet}{\textbackslash label} možemo koristiti i drugdje. Obično je koristimo da označimo sekcije, poglavlja i drugih cjelina, no možemo je koristiti i npr. kod lista. Primjer: ukoliko stavimo
+\textcolor{violet}{\textbackslash section\{Uvod\} \textbackslash label\{sek:uvod\}},  u nastavku teksta možemo reći: \textcolor{violet}{kao što smo spomenuli u sekciji  \textbackslash ref\{sek:uvod\}}. Ili
+\begin{enumerate}
+\item Svi ljudi su smrtni 
+\item Sokrat je čovjek 
+\item Dakle, Sokrat je smrtan 
+\end{enumerate}
+1 i 2 povlači 3.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Referenciranje}
+Prethodni tekst je dobiven pomoću sljedećeg k\^oda:
+\begin{lstlisting}
+\begin{enumerate}
+\item Svi ljudi su smrtni \label{m:1}
+\item Sokrat je čovjek \label{m:2}
+\item Dakle, Sokrat je smrtan\label{m:3}
+\end{enumerate}
+\ref{m:1} i \ref{m:2} povlači \ref{m:3}.
+\end{lstlisting}
+Na taj način npr.\ ubacivanje novog poglavlja usred knjige ne predstavlja problem za referenciranje. 
+
+Katkada se želimo referencirati na stranicu na kojoj smo npr. uveli neki pojam. U tom slučaju koristimo naredbu \textcolor{violet}{\textbackslash pageref\{oznaka\}}, ukoliko smo uz naš pojam stavili naredbu 
+\textcolor{violet}{\textbackslash label\{oznaka\}}. 
+
+Ukoliko želimo da numeracija prati npr. sekcije, u zaglavlje stavimo \textcolor{violet}{\textbackslash numberwithin\{equation\}\{section\}}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Numeracija: \textcolor{violet}{subequations}}
+    
+Ukoliko želimo nizu formula dati zajedničku oznaku, možemo koristiti okolinu \textcolor{violet}{subequations}:
+\begin{subequations}
+\label{sustav}
+\begin{align}
+2x+3y&=7 \label{s1}\\
+3x-4y&=11 \label{s2}
+\end{align}
+\end{subequations}
+Ovaj prikaz smo dobili pomoću sljedećeg k\^oda:
+
+\begin{lstlisting}
+\begin{subequations}
+\label{sustav}
+\begin{align}
+2x+3y&=7 \label{s1}\\
+3x-4y&=11 \label{s2}
+\end{align}
+\end{subequations}
+\end{lstlisting}
 
 \end{frame}
 
