@@ -4,7 +4,8 @@
 \usepackage{tikz}
 
 \usepackage[croatian]{babel}
-\usepackage[utf8x]{inputenc}
+\usepackage[croatian]{csquotes}
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{url}
@@ -164,7 +165,8 @@ Vrlo je teško, katkada nemoguće, producirati kompleksne matematičke formule p
 \item Paragrafi se odvajaju praznim retkom. Prva riječ u paragrafu je malo uvučena. Ukoliko to želimo spriječiti koristimo naredbu \textcolor{violet}{\textbackslash noindent}. 
 \item Prelazak u novi red u editoru \textcolor{red}{ne znači} i prelazak u novi red u dokumentu. Razmaci se također ignoriraju u \LaTeX u. U novi red (ukoliko odluku ne želimo prepustiti \LaTeX u) možemo preći pomoću \textcolor{violet}{\textbackslash \textbackslash} ili \textcolor{violet}{\textbackslash newline}.
 \item Prelazak na novu stranicu (ukoliko odluku ne želimo prepustiti \LaTeX u) se postiže pomoću naredbe \textcolor{violet}{\textbackslash newpage}.
-\item Točka koja ne dolazi poslije velikog slova označava kraj rečenice. To pravilo možemo promijeniti pomoću naredbi \textcolor{violet}{\textbackslash @} i \textcolor{violet}{\textbackslash\textvisiblespace}.
+\item Točka koja ne dolazi poslije velikog slova označava kraj rečenice. To pravilo možemo promijeniti pomoću naredbi \textcolor{violet}{\textbackslash @} i \textcolor{violet}{\textbackslash\textvisiblespace} \\
+(primjer: \texttt{npr.\textbackslash\textvisiblespace nije kraj}).
 \end{itemize}
 \end{frame}
 
@@ -172,13 +174,14 @@ Vrlo je teško, katkada nemoguće, producirati kompleksne matematičke formule p
 \begin{frame}
 \frametitle{Naše stvari}
 \begin{itemize}
-\item Hrvatske inačice navodnika: \glqq navodnici'' i \guillemotleft navodnici\guillemotright se dobijaju na sljedeći način:
+\item Hrvatske inačice navodnika: \glqq navodnici'' i \frqq navodnici\flqq{} se dobijaju na sljedeći način:
 \begin{center}
 \textcolor{violet}{\textbackslash glqq navodnici''} \\
 i\\
-\textcolor{violet}{\textbackslash guillemotleft navodnici \textbackslash guillemotright}
+\textcolor{violet}{\textbackslash frqq navodnici \textbackslash flqq\{\}}
 \end{center}
-Ovdje \textcolor{violet}{''} označavaju dva jednostruka navodnika.
+Ovdje \textcolor{violet}{''} označavaju dva jednostruka navodnika. 
+Drugi način je korištenje paketa \textcolor{violet}{csquotes} s opcijom \texttt{croatian}. Tada pišemo \textcolor{violet}{\textbackslash enquote\{tekst\}} da bi dobili \enquote{tekst}.
 \item Navodnici u engleskom pismu: ``quotes'' su dobijeni pomoću dva jednostruka navodnika \textcolor{violet}{`} i dva jednostruka navodnika \textcolor{violet}{'} 
 \item Hrvatski dijakritički znakovi se mogu unositi direktno preko tipkovnice ako podesimo kodiranje, ili pomoću naredbi \textcolor{violet}{\textbackslash 'c} za slovo ć, \textcolor{violet}{\textbackslash  v c} za slovo č, \textcolor{violet}{\textbackslash v ž} za slovo ž, \textcolor{violet}{\textbackslash v s} za slovo š, te \textcolor{violet}{\textbackslash dj} za slovo đ. I dijakritičke znakove iz ostalih pisama možemo slično unositi npr. Schr\"odinger. 
 \end{itemize}
@@ -317,7 +320,7 @@ Lua\LaTeX{}om. Pri kompajliranju tada treba koristiti odgovarajući program \tex
 \item ili ovo \rotatebox{-25}{\fbox{rotatebox}}
 \end{itemize}
 \setbeamertemplate{itemize item}[default]
-Za zadnje tri kutije potrebno je uključiti paket \textcolor{violet}{fancybox}.
+Za kutije \textcolor{violet}{shadowbox} i \textcolor{violet}{Ovalbox} potrebno je uključiti paket \textcolor{violet}{fancybox}, dok je za kutiju \textcolor{violet}{rotatebox} potrebno uključiti paket \textcolor{violet}{graphicx}.
 
 \pause
 
@@ -350,8 +353,7 @@ Jednostavan primjer:
 \begin{lstlisting}
 \documentclass{article}
 \usepackage[croatian]{babel}
-\usepackage[croatian]{babel}
-\usepackage[utf8x]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \title{Naslov}
 \author{Ja}
@@ -373,8 +375,7 @@ Kako postići da naslov bude na posebnoj stranici? Maknuli smo i naredbu \textco
 \begin{lstlisting}
 \documentclass[titlepage]{article}
 \usepackage[croatian]{babel}
-\usepackage[croatian]{babel}
-\usepackage[utf8x]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \title{Naslov}
 \author{Ja}
@@ -579,7 +580,7 @@ Kao primjer nestandardne klase dokumenata, pokazat ćemo kako se koristi klasa z
 \begin{lstlisting}
 \documentclass[a4paper,12pt]{letter}
 \usepackage[croatian]{babel}
-\usepackage[utf8x]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \begin{document}
 \begin{letter}{Dr. Strogi Nastavnik\\
