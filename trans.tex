@@ -1,0 +1,110 @@
+\documentclass[10pt]{beamer}
+\mode<presentation>{%
+	\usetheme{Goettingen}
+%	\usetheme{Warsaw}
+%	\usetheme{Frankfurt}
+%	   \usecolortheme{seahorse}
+%	   \usecolortheme{rose}
+%	   \usetheme{Berkeley}
+}
+
+
+\title{Simple Presentation}
+\author[D. Flipo, Euclid]{Daniel Flipo \& Euclid}
+\institute{U.S.T.L. \& GUTenberg}
+\date{2005}
+
+\begin{document}
+	%
+	\begin{frame}<hamndout:0>
+		\titlepage		
+	\end{frame}
+
+	\begin{frame}
+%	\transdissolve
+	\transdissolve[duration=3]
+
+	\frametitle{Outline}
+	\tableofcontents
+%	\tableofcontents[pausesections]
+	\end{frame}
+
+	\section{An example}
+
+		\begin{frame}
+%			\transboxout
+			\transboxin
+%			\transsplitverticalout
+			\frametitle{Things to do on a Sunday Afternoon}
+			\begin{block}{One could \ldots}
+				\begin{itemize}
+					\item walk the dog \dots\pause
+					\item read a book\dots\pause
+					\item confuse a cat\dots\pause
+					\item \fbox{solve $y^\prime(x)=\max\{x,y(x)\}$}!
+%					\item solve 
+%					\[
+%					\fbox
+%					{$y^\prime(x)=\max\{x,y(x)\}
+%					 $}!
+%					%}
+%					\]
+				\end{itemize}
+			\end{block}
+		\end{frame}
+		
+	\section{Another example}
+				
+		\subsection{Our motivation}
+			%
+		\begin{frame}
+				   \transwipe[direction=90]
+				   \frametitle{What Are Prime Numbers?}
+			\begin{definition}
+				A \alert{prime number} is a number that 
+				has exactly two divisors.
+			\end{definition}
+			\begin{example}
+					%
+					\begin{itemize}
+						\item 2 is prime (two divisors: 1 and 2).
+						\item 3 is prime (two divisors: 1 and 3).
+						\item 4 is not prime (\alert{three} divisors: 
+								1, 2, and 4).
+					\end{itemize}
+					%
+			\end{example}
+			%
+		\end{frame}
+		
+		\subsection{Our Theorem}
+			%
+		\begin{frame}
+				   \transglitter<2-3>[direction=90]
+			\frametitle{There Is No Largest Prime Number}
+			\framesubtitle{The proof uses \textit{reductio ad absurdum}.}
+			%
+			\begin{theorem}
+					There is no largest prime number.
+			\end{theorem}
+			%
+			\begin{proof}
+				%
+				\begin{enumerate}
+					\item<1-| alert@1> Suppose $p$ were the largest
+							 prime number.
+					\item<2-> Let $q$ be the product of the first $p$ 
+							 	numbers.
+					\item<3-> Then $q+1$ is not divisible by any of them.
+					\item<4-> Thus $q+1$ is also prime and greater than 
+								$p$.\qedhere
+				\end{enumerate}
+				%
+				\uncover<4->{The proof used 
+				\textit{reductio ad absurdum}.}	
+			\end{proof}
+			%
+		\end{frame}
+		
+		
+\end{document}  
