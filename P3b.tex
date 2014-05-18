@@ -1,0 +1,456 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[croatian]{csquotes}
+\usepackage{sagetex}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{fancybox}
+\usepackage{wasysym}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{multirow}
+\usepackage{graphicx}
+
+\newcommand{\A}[1]{#1&\texttt{\string#1}\hspace*{1ex}}
+
+
+\hypersetup{plainpages=false,bookmarksopen,linkcolor=violet,%
+pdfpagemode=FullScreen,colorlinks=true%
+}
+\hypersetup{pdftitle={Prezentacije}}
+\hypersetup{baseurl={http://www.math.hr}}
+\hypersetup{pdfsubject={LaTeX}}
+\hypersetup{pdfauthor={Ivica Nakić}}
+
+\lstset{language=[LaTeX]TeX,extendedchars=true,backgroundcolor=\color{gray!20},identifierstyle=,stringstyle=\rmfamily,%
+columns=flexible,showstringspaces=false,keywordstyle=\color{violet}\bfseries}
+
+\lstset{literate=%
+{Š}{{\v{S}}}1
+{Đ}{{\Dj{}}}1
+{Č}{{\v{C}}}1
+{Ć}{{\'C}}1
+{Ž}{{\v{Z}}}1
+{š}{{\v{s}}}1
+{đ}{{\dj{}}}1
+{č}{{\v{c}}}1
+{ć}{{\'c}}1
+{ž}{{\v{z}}}1
+}
+
+\lstdefinestyle{SageInput}{style=DefaultSageInput,numbers=none}
+\lstdefinestyle{SageOutput}{style=DefaultSageOutput,numbers=none}
+
+\title{\LaTeX{} --- Sage i Sage\TeX}
+\subtitle{}
+\author{Ivica Nakić \\ \texttt{nakic@math.hr}}
+\institute[PMF--MO]{Matematički odsjek Prirodoslovno--matematičkog fakulteta}
+\date[2013/14]{Matematički software, 2013/14}
+
+
+\begin{document}
+
+\begin{frame}
+  \maketitle  
+\end{frame}
+
+\begin{frame}
+\frametitle{Pregled}
+  \tableofcontents  
+\end{frame}
+
+\section{Sage}
+
+\begin{frame}
+\frametitle{Što je Sage?}
+\href{http://www.sagemath.org}{Sage} je matematička aplikacija sa sučeljem u programskom jeziku Python. Sage u sebi sadrži cijeli niz biblioteka (napisanih u raznim programskim jezicima) za razna područja matematike. Python biblioteke koje smo dosad obradili (Numpy, Scipy, Matplotlib, Sympy, Cython) su također ugrađene, ali unutar Sagea imamo pristup i R-u, Fortranu, C-u, C++-u,\ldots   
+\pause
+
+Sadrži biblioteke za algebru, algebarsku geometriju, aritmetičku geometriju, diferencijalni i integralni račun, kombinatoriku, linearnu algebru, teoriju grafova, teoriju grupa, teoriju brojeva,\ldots
+\pause
+
+Sage je nastao 2005.\ godine, trenutno je u 6.2 inačici te je dostupan za Unix operativne sustave te online na Sagemath oblaku.
+\end{frame}
+
+\begin{frame}
+\frametitle{Python vs.\ Sage}
+Iako u Sageu programiramo u Pythonu, postoje dvije razlike koje treba držati na umu:
+\begin{itemize}
+     \item potenciranje se može pisati i pomoću simbola \textasciicircum{} (xor operacija se piše s \textasciicircum\textasciicircum),
+     \item izrazi oblika $2/3$ ne vraćaju nulu već $2/3$ (dakle, razlomak); ako želimo cjelobrojno dijeljenje pišemo $2//3$.
+   \end{itemize}   
+Ove razlike su dobijene korištenje pre-parsera.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sage kao kalkulator}
+Neki jednostavni primjeri koda u Sageu:
+
+\begin{sageblock}
+4 * (10 // 4) + 10 % 4 == 10
+3^2*4 + 2%5
+sqrt(3.4)
+sin(pi/3)
+exp(2)
+sin(10).n(digits=5)
+N(sin(10),digits=10)
+sqrt(pi).numerical_approx()
+numerical_approx(pi, prec=200)
+\end{sageblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Neki tipovi varijabli su promijenjeni}
+\begin{sagecommandline}
+    sage: a = 5
+    sage: type(a)
+\end{sagecommandline}
+\begin{sagecommandline}
+    sage: a = 5/3
+    sage: type(a)
+\end{sagecommandline}
+\begin{sagecommandline}
+    sage: a = 'hello'
+    sage: type(a)
+\end{sagecommandline}      
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Rješavanje jednadžbi}
+Ako izvršimo sljedeći kod (slično kao i u Sympy-ju)    
+\begin{sageblock}
+    x = var('x')
+    solve(x^2 + 3*x + 2, x)
+\end{sageblock}  
+za rješenje ćemo dobiti $\sage{solve(x^2 + 3*x + 2, x)}$. 
+
+Analogno,
+\begin{sageblock}
+    x, b, c = var('x b c')
+    solve([x^2 + b*x + c == 0],x)  
+\end{sageblock}
+nam daje $\sage{solve([x^2 + b*x + c == 0],x)}$. 
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Rješavanje jednadžbi}
+Sustav nelinearnih jednadžbi:    
+\begin{sageblock}
+  var('x y p q')
+  eq1 = p+q==9
+  eq2 = q*y+p*x==-6
+  eq3 = q*y^2+p*x^2==24
+  solve([eq1,eq2,eq3,p==1],p,q,x,y)
+\end{sageblock} 
+\begin{sagesilent}
+  s = solve([eq1,eq2,eq3,p==1],p,q,x,y)
+\end{sagesilent}
+Rješenja su \[\sage{s[0]},\] \[\sage{s[1]}.\]  
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Rješavanje jednadžbi}
+Numeričko nalaženje rješenja:
+\begin{sagecommandline}
+    sage: phi = var('phi')
+    sage: find_root(cos(phi)==sin(phi),0,pi/2)
+\end{sagecommandline}
+Rješavanje nejednadžbi:
+\begin{sagecommandline}
+    sage: solve(x^2+x-1 > 0, x)
+\end{sagecommandline}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Nalaženje korijena polinoma}
+\begin{sageverbatim}
+    sage: (x^3+2*x+1).roots(x)
+\end{sageverbatim}
+\begin{sagesilent}
+    s = (x^3+2*x+1).roots(x)
+\end{sagesilent}
+Korijeni su 
+\begin{gather*}
+\sage{s[0]},\\ \sage{s[1]},\\ \sage{s[2]}. 
+\end{gather*}    
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Nalaženje korijena polinoma II}
+\begin{sageverbatim}
+    sage: (x^3+2*x+1).roots(x, ring=RR)
+\end{sageverbatim}
+daje $\sage{(x^3+2*x+1).roots(x, ring=RR)}$.
+\begin{sageverbatim}
+    sage: (x^3+2*x+1).roots(x, ring=CC)
+\end{sageverbatim}
+\begin{sagesilent}
+    s = (x^3+2*x+1).roots(x, ring=CC)
+\end{sagesilent}
+daje 
+$\sage{s[0]}$, $\sage{s[1]}$, $\sage{s[2]}$.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Deriviranje}
+\begin{sagecommandline}
+    sage: diff(sin(x^2), x, 4)
+\end{sagecommandline}
+\begin{sagecommandline}
+    sage: x, y = var('x,y')
+    sage: f = x^2 + 17*y^2
+    sage: f.diff(y)
+\end{sagecommandline}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Integriranje, parcijalni razlomci}
+\begin{sagecommandline}
+    sage: integral(x*sin(x^2), x)
+    sage: integral(x/(x^2+1), x, 0, 1)
+\end{sagecommandline}    
+Za numeričko integriranje postoji funkcija \texttt{integral\_numerical}.
+
+\begin{sagecommandline}
+  sage: f = 1/((1+x)*(x-1))
+  sage: f.partial_fraction(x)
+\end{sagecommandline}  
+
+Ako nemamo problema s automatskim kreiranjem varijabli možemo koristiti:
+\begin{sageverbatim}
+automatic_names(True)  
+\end{sageverbatim}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Pojednostavljivanje}
+\begin{sagecommandline}    
+  sage: simplify(arccos(sin(pi/3)))
+  sage: simplify(exp(i*pi/6))
+\end{sagecommandline}    
+\begin{sagecommandline}
+  sage: a = var('a')  
+  sage: y = cos(x+a) * (x+1)
+  sage: y.subs(a=-x)
+  sage: y.subs(x=pi/2, a=pi/3)
+\end{sagecommandline}    
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Pojednostavljivanje, simboličke funkcije}
+\begin{sagecommandline}    
+  sage: y, z = var('y, z')
+  sage: f = x^3 + y^2 + z
+  sage: f.subs_expr(x^3 == y^2, z==1)
+\end{sagecommandline}  
+\begin{sagecommandline}    
+  sage: f(x)=(2*x+1)^3
+  sage: f(-3)
+  sage: f.expand()
+\end{sagecommandline}    
+\begin{sagecommandline} 
+  sage: ((x+y+sin(x))^2).expand().collect(sin(x))
+\end{sagecommandline}   
+\end{frame} 
+
+\begin{frame}[fragile]\frametitle{Pojednostavljivanje, simboličke funkcije}
+\begin{sagecommandline}    
+  sage: u = sin(x) + x*cos(y)
+  sage: v = u.function(x, y)
+  sage: v
+\end{sagecommandline}    
+\begin{sagecommandline}    
+  sage: f = (e^x-1) / (1+e^(x/2))
+  sage: f.simplify_exp()
+\end{sagecommandline} 
+\begin{sagecommandline}    
+  sage: f = cos(x)^6 + sin(x)^6 + 3 * sin(x)^2 * cos(x)^2 
+  sage: f.simplify_trig()
+\end{sagecommandline} 
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Pojednostavljivanje}
+\begin{sagecommandline}    
+  sage: f = cos(x)^6
+  sage: f.reduce_trig() 
+  sage: f = sin(5 * x)
+  sage: f.expand_trig()   
+  sage: n = var('n')
+  sage: f = factorial(n+1)/factorial(n)
+  sage: f.simplify_factorial()
+  sage: f = sqrt(abs(x)^2) 
+  sage: f.simplify_radical()
+\end{sagecommandline} 
+Ostale naredbe: \texttt{factor}, \texttt{factor\_list}, \texttt{combine}, \texttt{simplify\_full},\ldots
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Uvjeti na varijable}
+\begin{sagecommandline}    
+  sage: assume(x > 0)
+  sage: bool(sqrt(x^2) == x) 
+  sage: forget(x > 0)
+  sage: bool(sqrt(x^2) == x)
+  sage: n = var('n')
+  sage: assume(n, 'integer')
+  sage: sin(n*pi).simplify()
+\end{sagecommandline}     
+
+
+\end{frame}
+ 
+\begin{frame}[fragile]\frametitle{Rješavanje ODJ}
+  
+\begin{sagecommandline}
+  sage: t = var('t')
+  sage: x = function('x',t)
+  sage: DE = diff(x, t) + x - 1
+  sage: desolve(DE, [x,t])
+\end{sagecommandline} 
+\begin{sagecommandline}
+  sage: x = var('x')
+  sage: y = function('y', x)
+  sage: desolve(diff(y,x,x) + x*diff(y,x) + y == 0, y, [0,0,1])
+\end{sagecommandline} 
+\end{frame} 
+
+\begin{frame}[fragile]\frametitle{Sume, redovi}
+\begin{sagecommandline}
+  sage: k, n = var('k, n')
+  sage: sum(k, k, 1, n).factor()
+  sage: sum(k * binomial(n, k), k, 0, n)
+  sage: n, k, y = var('n, k, y')
+  sage: sum(binomial(n,k) * x^k * y^(n-k), k, 0, n)
+  sage: a, q, k, n = var('a, q, k, n')
+  sage: sum(a*q^k, k, 0, n)
+\end{sagecommandline}     
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Sume, redovi}
+\begin{sagecommandline}
+  sage: a, q, k, n = var('a, q, k, n')
+  sage: sum(a*q^k, k, 0, n)
+  sage: assume(abs(q) < 1)
+  sage: sum(a*q^k, k, 0, infinity)
+\end{sagecommandline}     
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Limesi}
+\begin{sagecommandline}
+  sage: limit((x**(1/3) - 2) / ((x + 19)**(1/3) - 3), x = 8)
+  sage: f(x) = (cos(pi/4-x)-tan(x))/(1-sin(pi/4 + x))
+  sage: limit(f(x), x = pi/4)
+  sage: limit(f(x), x = pi/4, dir='minus')
+  sage: limit(f(x), x = pi/4, dir='plus')
+  sage: u(n) = n^100 / 100^n
+  sage: limit(u(n), n=infinity)
+\end{sagecommandline}  
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Razvoj funkcije u red}
+\begin{sagecommandline}
+  sage: taylor((1+arctan(x))**(1/x), x, 0, 3)
+  sage: (ln(2*sin(x))).series(x==pi/6, 3)
+  sage: (ln(2*sin(x))).series(x==pi/6, 3).truncate()
+  sage: f = arctan(x).series(x, 10)
+  sage: f
+  sage: (16*f.subs(x==1/5) - 4*f.subs(x==1/239)).n()
+\end{sagecommandline}   
+\end{frame}
+
+\section{Sage\TeX}
+
+\begin{frame}\frametitle{Sage\TeX}
+Ovaj \LaTeX{} dokument je kreiran uz pomoć paketa Sage\TeX{} koji omogućava da u jednom dokumentu imamo k\^od i za \LaTeX{} i za Sage.
+
+Korištenje ovog paketa je automatizirano na Sagemath oblku, za korištenje na vlastitom računalu svakako je potrebno imati i \TeX{} distribuciju i Sage.
+
+Naredbe koje se koriste za ispisivanje i procesiranje Sage k\^oda su:
+
+\begin{itemize}
+  \item \textcolor{violet}{\textbackslash sage}
+  \item \textcolor{violet}{\textbackslash sageplot}
+  \item \textcolor{violet}{\textbackslash sagestr}
+  \item \textcolor{violet}{\textbackslash percent}
+\end{itemize}
+
+Okoline koje se koriste za ispisivanje i procesiranje Sage k\^oda su:
+\begin{itemize}
+  \item \textcolor{violet}{sageblock}
+  \item \textcolor{violet}{sagesilent}
+  \item \textcolor{violet}{sageverbatim}
+  \item \textcolor{violet}{comment}
+  \item \textcolor{violet}{sagecommandline}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{\textbackslash sage, sagestr, percent}
+Rezultat naredbe
+\begin{lstlisting}
+$\sage{matrix([[1, 2], [3,4]])^2}$
+\end{lstlisting}  
+je
+\[\sage{matrix([[1, 2], [3,4]])^2}\]
+
+Naredba \textcolor{violet}{\textbackslash sagestr} je analogna naredbi \textcolor{violet}{\textbackslash sage}, samo što ne vraća \LaTeX{} k\^od.
+
+Naredba \textcolor{violet}{\textbackslash percent} služi za unošenje znaka \% u naredbe \textcolor{violet}{\textbackslash sage} i \textcolor{violet}{\textbackslash sageplot}.
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{\textbackslash sageplot}
+Naredba \textcolor{violet}{\textbackslash sageplot} služi za ubacivanje slika:
+\begin{lstlisting}
+\sageplot[angle=30, width=8cm][png]{plot(sin(x), 0, pi), axes=False}  
+\end{lstlisting}
+\begin{center}
+\sageplot[angle=30, width=8cm][png]{plot(sin(x), 0, pi), axes=False}    
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{sageblock}
+Tekst unutar okoline \textcolor{violet}{sageblock} će biti ispisan te izvršen. Npr.\ k\^od
+\begin{lstlisting}
+\begin{sageblock}
+        var('x')
+        f(x) = sin(x) - 1
+        g(x) = log(x)
+        h(x) = diff(f(x) * g(x), x)
+\end{sageblock}  
+\end{lstlisting}
+će biti ispisan kao
+\begin{sageblock}
+        var('x')
+        f(x) = sin(x) - 1
+        g(x) = log(x)
+        h(x) = diff(f(x) * g(x), x)
+\end{sageblock}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{sageblock, sagesilent, sageverbatim, comment}
+Nadalje, sljedeći će k\^od    
+\begin{lstlisting}
+Vrijedi $h(2) = \sage{h(2)}$, gdje je $h$ derivacija produkta 
+funkcija $f$ i $g$.  
+\end{lstlisting}
+biti ispisan kao
+\begin{block}{}
+Vrijedi $h(2) = \sage{h(2)}$, gdje je $h$ derivacija produkta funkcija $f$ i $g$.  
+\end{block}
+Okolina \textcolor{violet}{sagesilent} radi isto što i \textcolor{violet}{sageblock}, ali ne ispisuje k\^od. \textcolor{violet}{sageverbatim} ispisuje k\^od ali ga ne izvršava. \textcolor{violet}{comment} niti ispisuje niti izvršava k\^od te služi za upisivanje Sage komentara u \LaTeX{} k\^od.
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{sagecommandline}
+Ovu naredbu ćemo ilustrirati primjerom:
+Sljedeći k\^od 
+\begin{lstlisting}
+\begin{sagecommandline}
+       sage: 1+1
+       sage: factor(x^2 + 2*x + 1)
+\end{sagecommandline}        
+\end{lstlisting}    
+ispisuje:
+\begin{sagecommandline}
+       sage: 1+1
+       sage: factor(x^2 + 2*x + 1)
+\end{sagecommandline} 
+\end{frame}
+\end{document}
