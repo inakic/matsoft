@@ -6,6 +6,7 @@
 \usepackage[croatian]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[autostyle]{csquotes}
 \usepackage{amsmath}
 \usepackage{url}
 \usepackage{fancybox}
@@ -16,7 +17,7 @@
 
 \newcommand{\A}[1]{#1&\texttt{\string#1}\hspace*{1ex}}
 
-\usetikzlibrary{arrows,shapes,positioning,spy,calc,plotmarks}
+\usetikzlibrary{arrows,shapes,positioning,spy,calc,plotmarks,quotes,angles,babel}
 
 \hypersetup{plainpages=false,bookmarksopen,linkcolor=violet,%
 pdfpagemode=FullScreen,colorlinks=true%
@@ -46,7 +47,7 @@ columns=flexible,showstringspaces=false,keywordstyle=\color{violet}\bfseries}
 \subtitle{}
 \author{Ivica Nakić \\ \texttt{nakic@math.hr}}
 \institute[PMF--MO]{Matematički odsjek Prirodoslovno--matematičkog fakulteta}
-\date[2013/14]{Matematički software, 2013/14}
+\date[2014/15]{Matematički software, 2014/15}
 
 
 \begin{document}
@@ -569,6 +570,32 @@ node[pos=0.8,sloped,anchor=north] {$0.8$};
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{pic, angles}  
+\textcolor{violet}{pic} je naredba koja omogućuje kreiranje \enquote{malih} slika koje se mogu ubaciti bilo gdje u Ti\emph{k}Z slici gdje možemo staviti  \textcolor{violet}{node}. Razlika je što \textcolor{violet}{pic} može biti puno kompleksniji objekt. U donjem kodu koristimo i \textcolor{violet}{angles} Ti\emph{k}Z biblioteku.
+\begin{columns}
+\column{30mm}
+\begin{tikzpicture}
+  \draw
+  (3,-1) coordinate (a) node[right] {a}
+  -- (0,0) coordinate (b) node[left] {b}
+  -- (2,2) coordinate (c) node[above right] {c}
+  pic["$\alpha$",draw=orange,<->,angle eccentricity=1.2,angle radius=1cm] {angle=a--b--c};  
+\end{tikzpicture}
+\column{80mm}
+\small
+\begin{lstlisting}
+  \draw
+  (3,-1) coordinate (a) node[right] {a}
+  -- (0,0) coordinate (b) node[left] {b}
+  -- (2,2) coordinate (c) node[above right] {c}
+  pic["$\alpha$",draw=orange,<->,
+  angle eccentricity=1.2,
+  angle radius=1cm] {angle=a--b--c}; 
+\end{lstlisting}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
 \frametitle{Biblioteka \textcolor{violet}{spy}}
 \begin{columns}
 \column{30mm}
@@ -829,6 +856,31 @@ Općenita sintaksa je \textcolor{violet}{([<opcije>]\$<račun s koordinatama>\$)
 \draw[thick dashed] (0,0) rectangle (1,1);
 \draw[help lines] (1,1) rectangle (2,2);
 \end{tikzpicture}  
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Definiranje stilova}
+\begin{center}
+\tikzset{ seagull/.pic={
+    \draw (-3mm,0) to [bend left] (0,0) to [bend left] (3mm,0);
+  }
+}
+\begin{tikzpicture}
+\fill [fill=blue!20] (1,1)
+-- (2,2) pic {seagull} -- (3,2) pic {seagull} -- (3,1) pic [rotate=30] {seagull} -- (2,1) pic [red] {seagull};
+\end{tikzpicture}
+\end{center}
+\begin{lstlisting}
+\tikzset{ seagull/.pic={
+    \draw (-3mm,0) to [bend left] (0,0) to [bend left] (3mm,0);
+  }
+}
+\begin{tikzpicture}
+\fill [fill=blue!20] (1,1)
+-- (2,2) pic {seagull} -- (3,2) pic {seagull} -- (3,1) pic 
+[rotate=30] {seagull} -- (2,1) pic [red] {seagull};
+\end{tikzpicture}
 \end{lstlisting}
 \end{frame}
 
