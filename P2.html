@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf8">
+<title>P2.tex</title>
+<style type="text/css">
+body.hl	{ background-color:#202020; }
+pre.hl	{ color:#d0d0d0; background-color:#202020; font-size:10pt; font-family:'Courier New',monospace;}
+.hl.num { color:#87df71; }
+.hl.esc { color:#e8b87e; }
+.hl.str { color:#87df71; }
+.hl.pps { color:#87df71; }
+.hl.slc { color:#d0d0a0; }
+.hl.com { color:#d0d0a0; }
+.hl.ppc { color:#d0d0d0; }
+.hl.opt { color:#d0d0d0; }
+.hl.ipl { color:#7670d6; }
+.hl.lin { color:#d0d0a0; }
+.hl.kwa { color:#7ec0ee; font-weight:bold; }
+.hl.kwb { color:#f09479; font-weight:bold; }
+.hl.kwc { color:#87ed7e; }
+.hl.kwd { color:#e47eed; }
+</style>
+</head>
+<body class="hl">
+<pre class="hl"><span class="hl kwa">\documentclass</span><span class="hl opt">{</span>beamer<span class="hl opt">}</span>
+<span class="hl kwa">\usetheme</span><span class="hl opt">{</span>CambridgeUS<span class="hl opt">}</span>
+<span class="hl slc">%kod alternativne verzije koristim</span>
+<span class="hl slc">%\usetheme{MoreblueLight}</span>
+
+<span class="hl kwa">\usepackage</span><span class="hl opt">[</span>croatian<span class="hl opt">]{</span>babel<span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">[</span>utf8<span class="hl opt">]{</span><span class="hl kwb">inputenc</span><span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">[</span><span class="hl kwb">T1</span><span class="hl opt">]{</span><span class="hl kwb">fontenc</span><span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">[</span>autostyle<span class="hl opt">]{</span>csquotes<span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">{</span>amsmath<span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">{</span>url<span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">{</span>fancybox<span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">{</span>wasysym<span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">{</span>listings<span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">{</span>verbatim<span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">{</span>multirow<span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">{</span><span class="hl kwb">graphicx</span><span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">{</span>algorithm2e<span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">[</span>style=alphabetic<span class="hl opt">]{</span>biblatex<span class="hl opt">}</span>
+
+<span class="hl kwa">\newcommand</span><span class="hl opt">{</span><span class="hl kwa">\A</span><span class="hl opt">}[</span><span class="hl num">1</span><span class="hl opt">]{</span><span class="hl kwc">#1</span>&amp;<span class="hl kwa">\texttt</span><span class="hl opt">{</span><span class="hl kwa">\string</span><span class="hl kwc">#1</span><span class="hl opt">}</span><span class="hl kwa">\hspace</span>*<span class="hl opt">{</span><span class="hl num">1</span>ex<span class="hl opt">}}</span>
+
+
+<span class="hl kwa">\hypersetup</span><span class="hl opt">{</span>plainpages=false,bookmarksopen,linkcolor=violet,<span class="hl slc">%</span>
+pdfpagemode=FullScreen,colorlinks=true<span class="hl slc">%</span>
+<span class="hl opt">}</span>
+<span class="hl kwa">\hypersetup</span><span class="hl opt">{</span>pdftitle=<span class="hl opt">{</span>Prezentacije<span class="hl opt">}}</span>
+<span class="hl kwa">\hypersetup</span><span class="hl opt">{</span>baseurl=<span class="hl opt">{</span>http://www.math.hr<span class="hl opt">}}</span>
+<span class="hl kwa">\hypersetup</span><span class="hl opt">{</span>pdfsubject=<span class="hl opt">{</span>LaTeX<span class="hl opt">}}</span>
+<span class="hl kwa">\hypersetup</span><span class="hl opt">{</span>pdfauthor=<span class="hl opt">{</span>Ivica Nakić<span class="hl opt">}}</span>
+
+<span class="hl kwa">\lstset</span><span class="hl opt">{</span>language=<span class="hl opt">[</span>LaTeX<span class="hl opt">]</span>TeX,extendedchars=true,backgroundcolor=<span class="hl kwa">\color</span><span class="hl opt">{</span>gray!<span class="hl num">20</span><span class="hl opt">}</span>,identifierstyle=,stringstyle=<span class="hl kwa">\rmfamily</span>,<span class="hl slc">%</span>
+columns=flexible,showstringspaces=false,keywordstyle=<span class="hl kwa">\color</span><span class="hl opt">{</span>violet<span class="hl opt">}</span><span class="hl kwa">\bfseries</span><span class="hl opt">}</span>
+
+<span class="hl kwa">\lstset</span><span class="hl opt">{</span>literate=<span class="hl slc">%</span>
+<span class="hl opt">{</span>Š<span class="hl opt">}{{</span><span class="hl kwa">\v</span><span class="hl opt">{</span>S<span class="hl opt">}}}</span><span class="hl num">1</span>
+<span class="hl opt">{</span>Đ<span class="hl opt">}{{</span><span class="hl kwa">\Dj</span><span class="hl opt">{}}}</span><span class="hl num">1</span>
+<span class="hl opt">{</span>Č<span class="hl opt">}{{</span><span class="hl kwa">\v</span><span class="hl opt">{</span>C<span class="hl opt">}}}</span><span class="hl num">1</span>
+<span class="hl opt">{</span>Ć<span class="hl opt">}{{</span>\'C<span class="hl opt">}}</span><span class="hl num">1</span>
+<span class="hl opt">{</span>Ž<span class="hl opt">}{{</span><span class="hl kwa">\v</span><span class="hl opt">{</span>Z<span class="hl opt">}}}</span><span class="hl num">1</span>
+<span class="hl opt">{</span>š<span class="hl opt">}{{</span><span class="hl kwa">\v</span><span class="hl opt">{</span>s<span class="hl opt">}}}</span><span class="hl num">1</span>
+<span class="hl opt">{</span>đ<span class="hl opt">}{{</span><span class="hl kwa">\dj</span><span class="hl opt">{}}}</span><span class="hl num">1</span>
+<span class="hl opt">{</span>č<span class="hl opt">}{{</span><span class="hl kwa">\v</span><span class="hl opt">{</span>c<span class="hl opt">}}}</span><span class="hl num">1</span>
+<span class="hl opt">{</span>ć<span class="hl opt">}{{</span>\'c<span class="hl opt">}}</span><span class="hl num">1</span>
+<span class="hl opt">{</span>ž<span class="hl opt">}{{</span><span class="hl kwa">\v</span><span class="hl opt">{</span>z<span class="hl opt">}}}</span><span class="hl num">1</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwa">\newtheorem</span><span class="hl opt">{</span>thm<span class="hl opt">}{</span>Teorem<span class="hl opt">}</span>
+<span class="hl kwa">\newtheorem</span>*<span class="hl opt">{</span>rol<span class="hl opt">}{</span>Rolleov teorem<span class="hl opt">}</span>
+<span class="hl kwa">\newtheorem</span><span class="hl opt">{</span>cor<span class="hl opt">}[</span>thm<span class="hl opt">]{</span>Korolar<span class="hl opt">}</span>
+<span class="hl kwa">\theoremstyle</span><span class="hl opt">{</span>remark<span class="hl opt">}</span>
+<span class="hl kwa">\newtheorem</span><span class="hl opt">{</span>slutnja<span class="hl opt">}{</span>Slutnja<span class="hl opt">}</span>
+<span class="hl kwa">\newtheorem</span><span class="hl opt">{</span>ex<span class="hl opt">}{</span>Primjer<span class="hl opt">}</span>
+<span class="hl kwa">\theoremstyle</span><span class="hl opt">{</span>definition<span class="hl opt">}</span>
+<span class="hl kwa">\newtheorem</span><span class="hl opt">{</span>dfn<span class="hl opt">}[</span>slutnja<span class="hl opt">]{</span>Definicija<span class="hl opt">}</span>
+
+<span class="hl kwa">\addbibresource</span><span class="hl opt">{</span>P2.bib<span class="hl opt">}</span>
+
+<span class="hl kwa">\title</span><span class="hl opt">{</span><span class="hl kwa">\LaTeX</span><span class="hl opt">{}</span> --- Prezentacije i ostalo<span class="hl opt">}</span>
+<span class="hl kwa">\subtitle</span><span class="hl opt">{}</span>
+<span class="hl kwa">\author</span><span class="hl opt">{</span>Ivica Nakić \\ <span class="hl kwa">\texttt</span><span class="hl opt">{</span>nakic&#64;math.hr<span class="hl opt">}}</span>
+<span class="hl kwa">\institute</span><span class="hl opt">[</span>PMF--MO<span class="hl opt">]{</span>Matematički odsjek Prirodoslovno--matematičkog fakulteta<span class="hl opt">}</span>
+<span class="hl kwa">\date</span><span class="hl opt">[</span><span class="hl num">2015</span>/<span class="hl num">16</span><span class="hl opt">]{</span>Matematički software, <span class="hl num">2015</span>/<span class="hl num">16</span><span class="hl opt">}</span>
+
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span><span class="hl kwb">document</span><span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+  <span class="hl kwa">\maketitle</span>  
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Pregled<span class="hl opt">}</span>
+  <span class="hl kwa">\tableofcontents</span>  
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\section</span><span class="hl opt">{</span>Plutajući objekti<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Plutajući objekti<span class="hl opt">}</span>
+Pri unosu većih nedjeljivih objekata, kao što su npr. tablice ili slike, često je teško odrediti pravo mjesto u tekstu gdje ih treba smjestiti e da bi prijelom teksta bio odgovarajući.
+
+Stoga brigu o tome možemo prepustiti <span class="hl kwa">\LaTeX</span><span class="hl opt">{}</span>u uz pomoć <span class="hl kwa">\emph</span><span class="hl opt">{</span>plutajućih<span class="hl opt">}</span> okolina za slike i tablice. 
+
+Ukoliko npr. okolinu <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>tabular<span class="hl opt">}</span> stavimo unutar okoline <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>table<span class="hl opt">}</span>, ta tablica će biti stavljena u dokument tako da minimizira praznine na stranicama.
+
+<span class="hl kwa">\LaTeX</span><span class="hl opt">{}</span>u možemo sugerirati gdje preferiramo da se tablica pojavi pomoću opcionalnih parametara. Sintaksa je:
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>table<span class="hl opt">}[</span>parametri<span class="hl opt">]</span>
+...
+<span class="hl kwa">\end</span><span class="hl opt">{</span>table<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Plutajući objekti <span class="hl num">2</span><span class="hl opt">}</span>
+Parametri:
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>description<span class="hl opt">}</span>
+<span class="hl kwa">\item</span><span class="hl opt">[</span><span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>H<span class="hl opt">}]</span> ako je moguće, staviti tablicu na mjesto gdje smo je unijeli
+<span class="hl kwa">\item</span><span class="hl opt">[</span><span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>h<span class="hl opt">}]</span> ako je moguće, staviti tablicu (otprilike) na mjesto gdje smo je unijeli
+<span class="hl kwa">\item</span><span class="hl opt">[</span><span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>t<span class="hl opt">}]</span> ako je moguće, staviti tablicu na vrh stranice
+<span class="hl kwa">\item</span><span class="hl opt">[</span><span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>b<span class="hl opt">}]</span> ako je moguće, staviti tablicu na dno stranice
+<span class="hl kwa">\item</span><span class="hl opt">[</span><span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>p<span class="hl opt">}]</span> staviti tablicu na stranicu na kojoj se nalaze samo plutajući objekti.
+<span class="hl kwa">\end</span><span class="hl opt">{</span>description<span class="hl opt">}</span>
+Možemo staviti jedan ili više parametara. Predefinirane opcije su <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>tbp<span class="hl opt">}</span>.
+
+Sintaksa okoline <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>figure<span class="hl opt">}</span> za unos plutajućih slika je ista. 
+
+Ali kako se unose slike u <span class="hl kwa">\LaTeX</span> u?
+
+Za to nam služi paket <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwb">graphicx</span><span class="hl opt">}</span>. 
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\section</span><span class="hl opt">{</span>Slike<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Slike<span class="hl opt">}</span>
+Najjednostavnije sintaksa je <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> includegraphics\<span class="hl opt">{</span>ime<span class="hl kwa">\_slike</span>\<span class="hl opt">}}</span>. Pri generiranju PDFa dozvoljeni formati su 
+<span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>jpg<span class="hl opt">}</span>, <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>png<span class="hl opt">}</span>, <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>pdf<span class="hl opt">}</span> i <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>tiff<span class="hl opt">}</span> (u zaglavlje stavimo 
+<span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> usepackage<span class="hl opt">[</span>pdftex<span class="hl opt">]</span>\<span class="hl opt">{</span><span class="hl kwb">graphicx</span>\<span class="hl opt">}}</span>. 
+
+Dodatne opcije naredbe  <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> includegraphics<span class="hl opt">}</span> nam omogućavaju niz transformacija slike, Npr. 
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\includegraphics</span><span class="hl opt">[</span>width=<span class="hl num">2</span>cm,angle=<span class="hl num">45</span><span class="hl opt">]{</span>Tamias_minimus.jpg<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>figure<span class="hl opt">}</span>
+<span class="hl kwa">\centering</span>
+<span class="hl kwa">\includegraphics</span><span class="hl opt">[</span>width=<span class="hl num">2</span>cm,angle=<span class="hl num">45</span><span class="hl opt">]{</span>Tamias_minimus.jpg<span class="hl opt">}</span>
+<span class="hl kwa">\caption</span><span class="hl opt">{</span>Chipmunk (Tamias minimus), vrsta vjeverice<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>figure<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Slike <span class="hl num">2</span><span class="hl opt">}</span>
+Tekst ispod slike je dobijen pomoću naredbe <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> caption<span class="hl opt">}</span>. Ona se koristi samo kod plutajućih objekata.
+<span class="hl kwa">\pause</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>minipage<span class="hl opt">}{</span><span class="hl num">6</span>cm<span class="hl opt">}</span>
+<span class="hl kwa">\includegraphics</span><span class="hl opt">[</span>angle=<span class="hl num">180</span>,scale=<span class="hl num">0.5</span><span class="hl opt">]{</span>Konigsberg_bridges.png<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>minipage<span class="hl opt">}</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>minipage<span class="hl opt">}[</span>c<span class="hl opt">]{</span><span class="hl num">5</span>cm<span class="hl opt">}</span>
+Ovu sliku smo npr.\ smanjili i rotirali: <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> includegraphics <span class="hl opt">[</span>angle=<span class="hl num">180</span>,scale=<span class="hl num">0.5</span><span class="hl opt">]</span> \<span class="hl opt">{</span>Konigsberg<span class="hl kwa">\_bridges</span>.png\<span class="hl opt">}}</span>. I nismo
+koristili naredbu <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> caption<span class="hl opt">}</span>.	
+<span class="hl kwa">\end</span><span class="hl opt">{</span>minipage<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Još o <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwb">graphicx</span><span class="hl opt">}</span> paketu<span class="hl opt">}</span>
+Paket <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwb">graphicx</span><span class="hl opt">}</span> sadrži i druge naredbe. Npr<span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> scalebox<span class="hl opt">}</span>: 
+
+<span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>
+<span class="hl kwa">\scalebox</span><span class="hl opt">{</span><span class="hl num">3</span><span class="hl opt">}[</span><span class="hl num">2</span><span class="hl opt">]{</span>Zdravo!<span class="hl opt">}</span>
+<span class="hl opt">}</span> 
+
+je dobijeno pomoću k\^oda <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> scalebox\<span class="hl opt">{</span><span class="hl num">3</span>\<span class="hl opt">}[</span><span class="hl num">2</span><span class="hl opt">]</span>\<span class="hl opt">{</span>Zdravo!\<span class="hl opt">}}</span>, a 
+
+<span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>
+<span class="hl kwa">\scalebox</span><span class="hl opt">{</span>-<span class="hl num">1</span><span class="hl opt">}[</span><span class="hl num">1</span><span class="hl opt">]{</span>Zdravo!<span class="hl opt">}</span>
+<span class="hl opt">}</span> 
+
+pomoću k\^oda <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> scalebox\<span class="hl opt">{</span>-<span class="hl num">1</span>\<span class="hl opt">}[</span><span class="hl num">1</span><span class="hl opt">]</span>\<span class="hl opt">{</span>Zdravo!\<span class="hl opt">}}</span>.
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\section</span><span class="hl opt">{</span>Projekti<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Veći dokumenti<span class="hl opt">}</span>
+Ukoliko pišemo veći dokument, poželjno je tekst smjestiti u više datoteka, npr. svako poglavlje u zasebnu datoteku. 
+
+Tekst iz drugih datoteka uključujemo pomoću naredbi <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> input<span class="hl opt">}</span>, <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> include<span class="hl opt">}</span> i <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> includeonly<span class="hl opt">}</span>. Npr.\ 
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\documentclasss</span><span class="hl opt">[</span><span class="hl num">12</span>pt<span class="hl opt">]{</span><span class="hl kwb">report</span><span class="hl opt">}</span>
+<span class="hl kwa">\includeonly</span><span class="hl opt">{</span>pogl2.tex,pogl3.tex<span class="hl opt">}</span>
+<span class="hl slc">%--zaglavlje--------</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span><span class="hl kwb">document</span><span class="hl opt">}</span>
+<span class="hl kwa">\include</span><span class="hl opt">{</span>pogl1.tex<span class="hl opt">}</span>
+<span class="hl kwa">\include</span><span class="hl opt">{</span>pogl2.tex<span class="hl opt">}</span>
+<span class="hl kwa">\include</span><span class="hl opt">{</span>pogl3.tex<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span><span class="hl kwb">document</span><span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+
+Datoteke <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>pogl1.tex<span class="hl opt">}</span>, <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>pogl2.tex<span class="hl opt">}</span> i <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>pogl3.tex<span class="hl opt">}</span> se ne tretiraju kao zasebni <span class="hl kwa">\LaTeX</span><span class="hl opt">{}</span> dokumenti te u njima nema zaglavlja, već krećemo od npr. <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> chapter\<span class="hl opt">{</span>...\<span class="hl opt">}}</span>.
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\section</span><span class="hl opt">{</span>Bibliografija<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Bibliografija<span class="hl opt">}</span>
+Bibliografiju možemo unositi direktno u <span class="hl kwa">\LaTeX</span><span class="hl opt">{}</span> datoteku ili je možemo spremiti u zasebnu datoteku. Mi ćemo obraditi drugi način, koji pruža puno veću fleksibilnost.
+
+Najprije kreiramo bibliografsku bazu koja se sastoji od bibliografskih jedinica oblika
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+&#64;book <span class="hl opt">{</span>knuth1,
+    AUTHOR = <span class="hl opt">{</span>Knuth, Donald E.<span class="hl opt">}</span>,
+     TITLE = <span class="hl opt">{</span>Digital typography<span class="hl opt">}</span>,
+    SERIES = <span class="hl opt">{</span>CSLI Lecture Notes<span class="hl opt">}</span>,
+    VOLUME = <span class="hl opt">{</span><span class="hl num">78</span><span class="hl opt">}</span>,
+ PUBLISHER = <span class="hl opt">{</span>CSLI Publications<span class="hl opt">}</span>,
+   ADDRESS = <span class="hl opt">{</span>Stanford, CA<span class="hl opt">}</span>,
+      YEAR = <span class="hl opt">{</span><span class="hl num">1999</span><span class="hl opt">}</span>,
+     PAGES = <span class="hl opt">{</span>xvi+<span class="hl num">685</span><span class="hl opt">}</span>,
+<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Bibliografija <span class="hl num">2</span><span class="hl opt">}</span>
+Tipovi bibliografskih jedinica su <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>&#64;book<span class="hl opt">}</span>, <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>&#64;article<span class="hl opt">}</span>, <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>&#64;manual<span class="hl opt">}</span>, <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>&#64;proceedings<span class="hl opt">}</span>,...
+
+Obično se bibliografska baza ne kreira ručno, nego se skida s Interneta ili izvozi iz aplikacija. Npr.\ podatke za matematičke knjige i članke u tzv.\ 
+<span class="hl kwa">\textit</span><span class="hl opt">{</span>bibtex<span class="hl opt">}</span> formatu možemo naći na stranici <span class="hl kwa">\href</span><span class="hl opt">{</span>http://www.ams.org/mathscinet/search<span class="hl opt">}{</span>http://www.ams.org/mathscinet/search<span class="hl opt">}</span>, a i mnogi stručni pretraživači (npr.\ <span class="hl kwa">\href</span><span class="hl opt">{</span>http://scholar.google.com/<span class="hl opt">}{</span>Google Scholar<span class="hl opt">}</span>) te razne aplikacije nude izvoz podataka u <span class="hl kwa">\textit</span><span class="hl opt">{</span>bibtex<span class="hl opt">}</span> formatu.
+
+Da bi smo bibliografiju uključili u naš dokument, na mjestu u tekstu gdje želimo imati popis literature stavimo 
+<span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> printbibliography<span class="hl opt">}</span>, a negdje u zaglavlje stavimo:
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\usepackage</span><span class="hl opt">[</span>style=alphabetic<span class="hl opt">]{</span>biblatex<span class="hl opt">}</span>
+<span class="hl kwa">\addbibresource</span><span class="hl opt">{</span>ime_datoteke<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+
+Ovdje je <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>alphabetic<span class="hl opt">}</span> jedan od mnogih stilova koje nam nudi biblatex.
+
+<span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>ime<span class="hl kwa">\_datoteke</span><span class="hl opt">}</span> je ime datoteke u kojoj su smješteni bibliografski podaci (i koja obavezno ima <span class="hl opt">{</span>sufiks<span class="hl opt">}</span> <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>.bib<span class="hl opt">}</span>).
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Bibliografija <span class="hl num">3</span><span class="hl opt">}</span>
+Kako bi u tekstu citirali Knuthovu knjigu, trebamo samo na odgovarajuće mjesto staviti <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> cite\<span class="hl opt">{</span>knuth1\<span class="hl opt">}}</span>, kao npr.\ ovdje <span class="hl kwa">\cite</span><span class="hl opt">{</span>knuth1<span class="hl opt">}</span>.
+
+U popisu literature će se nalaziti samo citirani radovi. Ukoliko želimo da se u popisu literature pojavi i neka necitirana referenca, dovoljno je bilo gdje u tekst ubaciti npr. <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> nocite\<span class="hl opt">{</span>van2012\<span class="hl opt">}}</span>. Ukoliko pak želimo uključiti sve podatke iz bibliografske baze, trebamo negdje u dokument staviti  
+<span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> nocite\<span class="hl opt">{</span>*\<span class="hl opt">}}</span>.
+<span class="hl kwa">\nocite</span><span class="hl opt">{</span>*<span class="hl opt">}</span>
+
+Kako procesiramo dokument koji ima  bibliografiju? Najprije procesiramo <span class="hl kwa">\LaTeX</span><span class="hl opt">{}</span> datoteku, potom procesiramo <span class="hl kwa">\textit</span><span class="hl opt">{</span>bibtex<span class="hl opt">}</span> datoteku (pomoću programa 
+<span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>biber<span class="hl opt">}</span>), te potom još dvaput procesiramo <span class="hl kwa">\LaTeX</span><span class="hl opt">{}</span> datoteku. Obično editori koji podržavaju <span class="hl kwa">\LaTeX</span><span class="hl opt">{}</span> format sami brinu o ovoj proceduri.
+
+U Sagemath oblaku za <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>Build<span class="hl opt">}</span> naredbu treba staviti
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+latexmk -pdf -f -latex=&quot;pdflatex -interact=nonstopmode <span class="hl slc">%S&quot; file.tex</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Popis literature<span class="hl opt">}</span>
+<span class="hl kwa">\printbibliography</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\section</span><span class="hl opt">{</span>Interaktivnost<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span><span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> hyperref<span class="hl opt">}}</span>
+Pomoću <span class="hl kwa">\LaTeX</span> a možemo kreirati i interaktivne dokumente. Npr. unutar PDF dokumenta kreiranog <span class="hl kwa">\LaTeX</span> om možemo stavljati interaktivne elemente kao što su linkovi, forme itd. 
+
+Tu funkcionalnost omogućava paket <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>hyperref<span class="hl opt">}</span>. Npr.\ ukoliko želimo staviti link na <span class="hl kwa">\TeX</span><span class="hl opt">{}</span> user group stranicu, jednostavno upišemo
+<span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> href\<span class="hl opt">{</span>http://www.tug.org\<span class="hl opt">}</span>\<span class="hl opt">{</span><span class="hl kwa">\textbackslash</span> LARGE TUG\<span class="hl opt">}}</span>.
+
+Uključivanjem paketa <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>hyperref<span class="hl opt">}</span> automatski sve reference u dokumentu postaju i linkovi. Naravno, i unutar samog teksta možemo postavljati sidra (<span class="hl kwa">\textit</span><span class="hl opt">{</span>anchors<span class="hl opt">}</span>) i linkove pomoću naredbi
+ <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> hypertarget\<span class="hl opt">{</span>ime<span class="hl kwa">\_sidra</span>\<span class="hl opt">}</span>\<span class="hl opt">{</span>tekst\<span class="hl opt">}}</span> i  <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> hyperlink\<span class="hl opt">{</span>ime<span class="hl kwa">\_sidra</span>\<span class="hl opt">}</span>\<span class="hl opt">{</span>tekst\<span class="hl opt">}}</span>. 
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\section</span><span class="hl opt">{</span>Ispis k\^odova i algoritama<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Algoritmi<span class="hl opt">}</span>
+
+Postoji jako puno paketa koji služe za ispis programskih k\^odova, a jedan od popularnijih je <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>algorithm2e<span class="hl opt">}</span>. 
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>algorithm<span class="hl opt">}[</span>H<span class="hl opt">]</span>
+<span class="hl kwa">\KwIn</span><span class="hl opt">{</span>
+Integers  $a <span class="hl kwa">\geq</span> <span class="hl num">0</span>$ and $b<span class="hl kwa">\geq</span> <span class="hl num">0</span>$<span class="hl opt">}</span>	
+<span class="hl kwa">\KwOut</span><span class="hl opt">{</span><span class="hl kwa">\textsc</span><span class="hl opt">{</span>GCD<span class="hl opt">}</span> of $a$ and $b$<span class="hl opt">}</span>
+<span class="hl kwa">\While</span><span class="hl opt">{</span>$b <span class="hl kwa">\neq</span> <span class="hl num">0</span>$<span class="hl opt">} {</span>
+$r <span class="hl kwa">\leftarrow</span> a <span class="hl kwa">\bmod</span> b$\;
+$a <span class="hl kwa">\leftarrow</span> b$\;
+$b <span class="hl kwa">\leftarrow</span> r$\;	
+<span class="hl opt">}</span>
+<span class="hl kwa">\caption</span><span class="hl opt">{</span>Euclidean algorithm<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>algorithm<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Algoritmi<span class="hl opt">}</span>
+K\^od za prethodni slajd je:
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>algorithm<span class="hl opt">}[</span>H<span class="hl opt">]</span>
+<span class="hl kwa">\KwIn</span><span class="hl opt">{</span>
+Integers  $a <span class="hl kwa">\geq</span> <span class="hl num">0</span>$ and $b<span class="hl kwa">\geq</span> <span class="hl num">0</span>$<span class="hl opt">}</span>	
+<span class="hl kwa">\KwOut</span><span class="hl opt">{</span><span class="hl kwa">\textsc</span><span class="hl opt">{</span>GCD<span class="hl opt">}</span> of $a$ and $b$<span class="hl opt">}</span>
+<span class="hl kwa">\While</span><span class="hl opt">{</span>$b <span class="hl kwa">\neq</span> <span class="hl num">0</span>$<span class="hl opt">} {</span>
+$r <span class="hl kwa">\leftarrow</span> a <span class="hl kwa">\bmod</span> b$\;
+$a <span class="hl kwa">\leftarrow</span> b$\;
+$b <span class="hl kwa">\leftarrow</span> r$\;	
+<span class="hl opt">}</span>
+<span class="hl kwa">\caption</span><span class="hl opt">{</span>Euclidean algorithm<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>algorithm<span class="hl opt">}</span>	
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Ispisivanje programskih k\^odova<span class="hl opt">}</span>
+U ovim prezentacijama korišten je paket <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>listings<span class="hl opt">}</span>, u kojem je predefiniran ogroman broj programskih jezika, kao i HTML, <span class="hl kwa">\LaTeX</span><span class="hl opt">{}</span> itd.
+Jedan primjer upotrebe za k\^od pisan u Javi: 
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}[</span>language=Java
+,firstline=<span class="hl num">2</span>
+,lastline=<span class="hl num">4</span>
+,caption=Hello World.
+,label=example<span class="hl opt">]</span>
+public class Greetings <span class="hl opt">{</span>
+	public static void main( String<span class="hl opt">[]</span> args ) <span class="hl opt">{</span>
+		System.out.println( &quot;Hello world!&quot; );
+	<span class="hl opt">}</span>
+<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>  
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Paket <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>brown<span class="hl opt">}{</span>listings<span class="hl opt">}}</span>
+K\^od za prethodni slajd:
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>verbatim<span class="hl opt">}</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}[</span>language=Java
+,firstline=<span class="hl num">2</span>
+,lastline=<span class="hl num">4</span>
+,caption=Hello World.
+,label=example<span class="hl opt">]</span>
+public class Greetings <span class="hl opt">{</span>
+	public static void main( String<span class="hl opt">[]</span> args ) <span class="hl opt">{</span>
+		System.out.println( &quot;Hello world!&quot; );
+	<span class="hl opt">}</span>
+<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>     	
+<span class="hl kwa">\end</span><span class="hl opt">{</span>verbatim<span class="hl opt">}</span>    
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Predefinirane vrijednosti<span class="hl opt">}</span>
+Pomoću naredbe <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> lstset<span class="hl opt">}</span> mogu se postaviti predefinirane vrijednosti za okolinu 
+<span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> lstlisting<span class="hl opt">}</span>. Naprimjer, u zaglavlju dokumenata za ove prezentacije se koristi ova naredba na sljedeći način:
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\lstset</span><span class="hl opt">{</span>
+language=<span class="hl opt">[</span>LaTeX<span class="hl opt">]</span>TeX,extendedchars=true,
+backgroundcolor=<span class="hl kwa">\color</span><span class="hl opt">{</span>gray!<span class="hl num">20</span><span class="hl opt">}</span>,
+identifierstyle=,stringstyle=<span class="hl kwa">\rmfamily</span>,
+columns=flexible,showstringspaces=false,
+keywordstyle=<span class="hl kwa">\color</span><span class="hl opt">{</span>violet<span class="hl opt">}</span><span class="hl kwa">\bfseries</span><span class="hl opt">}</span>	
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\section</span><span class="hl opt">{</span>Prezentacije<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Pravljenje prezentacija u <span class="hl kwa">\LaTeX</span> u<span class="hl opt">}</span>
+Za pravljenje prezentacija uobičajeno je koristiti paket <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>beamer<span class="hl opt">}</span>. 
+
+Uključivanje beamera: <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> documentclass\<span class="hl opt">{</span>beamer\<span class="hl opt">}}</span>.
+
+
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+  <span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Moj novi slajd<span class="hl opt">}</span>
+  <span class="hl kwa">\framesubtitle</span><span class="hl opt">{</span>moj podnaslov<span class="hl opt">}</span> 
+ Svaki slajd se piše unutar okoline <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>frame<span class="hl opt">}</span>.  
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>columns<span class="hl opt">}</span>
+  <span class="hl kwa">\column</span><span class="hl opt">{</span><span class="hl num">3</span>cm<span class="hl opt">}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>
+    <span class="hl kwa">\item</span> Prvi
+    <span class="hl kwa">\item</span> Drugi
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>
+ <span class="hl kwa">\column</span><span class="hl opt">{</span><span class="hl num">6</span>cm<span class="hl opt">}</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+  <span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Moj novi slajd<span class="hl opt">}</span>
+  <span class="hl kwa">\framesubtitle</span><span class="hl opt">{</span>moj podnaslov<span class="hl opt">}</span>  
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>columns<span class="hl opt">}</span>
+  <span class="hl kwa">\column</span><span class="hl opt">{</span><span class="hl num">5</span>cm<span class="hl opt">}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>
+    <span class="hl kwa">\item</span> Prvi
+    <span class="hl kwa">\item</span> Drugi
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>	
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>columns<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+  <span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Primjer <span class="hl num">2</span><span class="hl opt">}</span>
+  <span class="hl kwa">\framesubtitle</span><span class="hl opt">{</span>Podnaslov<span class="hl opt">}</span> 
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>
+    <span class="hl kwa">\only</span>&lt;<span class="hl num">1</span>-&gt;<span class="hl opt">{</span><span class="hl kwa">\item</span> Prva formula $<span class="hl kwa">\sin</span>^<span class="hl num">2</span> x+<span class="hl kwa">\cos</span>^<span class="hl num">2</span> x=<span class="hl num">1</span>$<span class="hl opt">}</span>
+    <span class="hl kwa">\uncover</span>&lt;<span class="hl num">2</span>-&gt;<span class="hl opt">{</span><span class="hl kwa">\item</span> Druga formula $e^<span class="hl opt">{</span>i<span class="hl kwa">\pi</span><span class="hl opt">}</span>=-<span class="hl num">1</span>$<span class="hl opt">}</span>
+    <span class="hl kwa">\uncover</span>&lt;<span class="hl num">3</span>&gt;<span class="hl opt">{</span><span class="hl kwa">\item</span> Treća formula \<span class="hl opt">[</span> <span class="hl kwa">\sum_</span><span class="hl opt">{</span>i=<span class="hl num">1</span><span class="hl opt">}</span>^n i=<span class="hl kwa">\frac</span><span class="hl opt">{</span>n(n+<span class="hl num">1</span>)<span class="hl opt">}{</span><span class="hl num">2</span><span class="hl opt">}</span>\<span class="hl opt">]}</span>
+    <span class="hl kwa">\only</span>&lt;<span class="hl num">1</span>-&gt;<span class="hl opt">{</span><span class="hl kwa">\item</span> Četvrta formula $<span class="hl kwa">\alpha \trianglerighteq \beta \gtrapprox \gamma</span>$<span class="hl opt">}</span>
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>K\^od za prethodni slajd<span class="hl opt">}</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>
+    <span class="hl kwa">\only</span>&lt;<span class="hl num">1</span>-&gt;<span class="hl opt">{</span><span class="hl kwa">\item</span> Prva formula ...<span class="hl opt">}</span>
+    <span class="hl kwa">\uncover</span>&lt;<span class="hl num">2</span>-&gt;<span class="hl opt">{</span><span class="hl kwa">\item</span> Druga formula ...<span class="hl opt">}</span>
+    <span class="hl kwa">\uncover</span>&lt;<span class="hl num">3</span>&gt;<span class="hl opt">{</span><span class="hl kwa">\item</span> Treća formula ...<span class="hl opt">}</span>
+    <span class="hl kwa">\only</span>&lt;<span class="hl num">1</span>-&gt;<span class="hl opt">{</span><span class="hl kwa">\item</span> Četvrta formula ...<span class="hl opt">}</span>
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>		
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+  <span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Zašto Beamer?<span class="hl opt">}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>itemize<span class="hl opt">}[</span>&lt;+-&gt;<span class="hl opt">]</span>
+  <span class="hl kwa">\item</span> Zato što se piše u  <span class="hl kwa">\LaTeX</span><span class="hl opt">{}</span>u.
+  <span class="hl kwa">\item</span> Izlazni format je PDF.
+  <span class="hl kwa">\item</span> Lako se mijenja izgled prezentacije.
+  <span class="hl kwa">\item</span> Već napisani tekst se može lako iskoristiti za prezentaciju.
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>K\^od za prethodni slajd<span class="hl opt">}</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>itemize<span class="hl opt">}[</span>&lt;+-&gt;<span class="hl opt">]</span>
+  <span class="hl kwa">\item</span> Zato što se piše u  <span class="hl kwa">\LaTeX</span><span class="hl opt">{}</span>u.
+  <span class="hl kwa">\item</span> Izlazni format je PDF.
+  <span class="hl kwa">\item</span> Lako se mijenja izgled prezentacije.
+  <span class="hl kwa">\item</span> Već napisani tekst se može lako iskoristiti za prezentaciju.
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>    	
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>    
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+  <span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Što su prosti brojevi?<span class="hl opt">}</span>
+  <span class="hl kwa">\framesubtitle</span><span class="hl opt">{</span>Slajd posuđen iz <span class="hl kwa">\cite</span><span class="hl opt">{</span>beamerUserGuide<span class="hl opt">}}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>dfn<span class="hl opt">}</span>
+     <span class="hl kwa">\alert</span><span class="hl opt">{</span>Prosti broj<span class="hl opt">}</span> je broj koji ima točno dva djelitelja.
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>dfn<span class="hl opt">}</span>
+  <span class="hl kwa">\pause</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>ex<span class="hl opt">}</span>
+    <span class="hl kwa">\begin</span><span class="hl opt">{</span>itemize<span class="hl opt">}[</span>&lt;+-&gt;<span class="hl opt">]</span>
+    <span class="hl kwa">\item</span> <span class="hl num">2</span> je prost (djelitelji su  <span class="hl num">1</span> i <span class="hl num">2</span>).
+    <span class="hl kwa">\item</span> <span class="hl num">3</span> je prost (djelitelji su  <span class="hl num">1</span> i <span class="hl num">3</span>).
+    <span class="hl kwa">\item</span> <span class="hl num">4</span> nije prost (<span class="hl kwa">\alert</span><span class="hl opt">{</span>tri<span class="hl opt">}</span> djelitelja: <span class="hl num">1</span>, <span class="hl num">2</span>, i <span class="hl num">4</span>).
+    <span class="hl kwa">\end</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>ex<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>K\^od za prethodni slajd<span class="hl opt">}</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>dfn<span class="hl opt">}</span>
+     <span class="hl kwa">\alert</span><span class="hl opt">{</span>Prosti broj<span class="hl opt">}</span> je broj koji ima točno dva djelitelja.
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>dfn<span class="hl opt">}</span>
+  <span class="hl kwa">\pause</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>ex<span class="hl opt">}</span>
+    <span class="hl kwa">\begin</span><span class="hl opt">{</span>itemize<span class="hl opt">}[</span>&lt;+-&gt;<span class="hl opt">]</span>
+    <span class="hl kwa">\item</span> <span class="hl num">2</span> je prost (djelitelji su  <span class="hl num">1</span> i <span class="hl num">2</span>).
+    <span class="hl kwa">\item</span> <span class="hl num">3</span> je prost (djelitelji su  <span class="hl num">1</span> i <span class="hl num">3</span>).
+    <span class="hl kwa">\item</span> <span class="hl num">4</span> nije prost (<span class="hl kwa">\alert</span><span class="hl opt">{</span>tri<span class="hl opt">}</span> djelitelja: <span class="hl num">1</span>, <span class="hl num">2</span>, i <span class="hl num">4</span>).
+    <span class="hl kwa">\end</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>ex<span class="hl opt">}</span>  	
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>    
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+  <span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Ne postoji najveći prosti broj<span class="hl opt">}</span>
+  <span class="hl kwa">\framesubtitle</span><span class="hl opt">{</span>Slajd posuđen iz <span class="hl kwa">\cite</span><span class="hl opt">{</span>beamerUserGuide<span class="hl opt">}}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>thm<span class="hl opt">}</span>
+    Ne postoji najveći prosti broj.
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>thm<span class="hl opt">}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>proof<span class="hl opt">}</span>
+    <span class="hl kwa">\begin</span><span class="hl opt">{</span>enumerate<span class="hl opt">}</span>
+    <span class="hl kwa">\item</span>&lt;<span class="hl num">1</span>-&gt; Pretpostavimo da je $p$ najveći prosti broj.
+    <span class="hl kwa">\item</span>&lt;<span class="hl num">2</span>-&gt; Neka je $q$ umnožak prvih $p$ brojeva.
+    <span class="hl kwa">\item</span>&lt;<span class="hl num">3</span>-&gt; Tada $q + <span class="hl num">1</span>$ nije djeljiv ni s jednim od njih.
+    <span class="hl kwa">\item</span>&lt;<span class="hl num">1</span>-&gt; Dakle, $q + <span class="hl num">1</span>$ je također prost i veći je od $p$.<span class="hl kwa">\qedhere</span>
+    <span class="hl kwa">\end</span><span class="hl opt">{</span>enumerate<span class="hl opt">}</span>
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>proof<span class="hl opt">}</span>
+  <span class="hl kwa">\uncover</span>&lt;<span class="hl num">4</span>-&gt;<span class="hl opt">{</span>Dokaz je koristio postupak <span class="hl kwa">\emph</span><span class="hl opt">{</span>reductio ad absurdum<span class="hl opt">}</span>.<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>K\^od za prethodni slajd<span class="hl opt">}</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>thm<span class="hl opt">}</span>
+    Ne postoji najveći prosti broj.
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>thm<span class="hl opt">}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>proof<span class="hl opt">}</span>
+    <span class="hl kwa">\begin</span><span class="hl opt">{</span>enumerate<span class="hl opt">}</span>
+    <span class="hl kwa">\item</span>&lt;<span class="hl num">1</span>-&gt; Pretpostavimo da je $p$ najveći prosti broj.
+    <span class="hl kwa">\item</span>&lt;<span class="hl num">2</span>-&gt; Neka je $q$ umnožak prvih $p$ brojeva.
+    <span class="hl kwa">\item</span>&lt;<span class="hl num">3</span>-&gt; Tada $q + <span class="hl num">1</span>$ nije djeljiv ni s jednim od njih.
+    <span class="hl kwa">\item</span>&lt;<span class="hl num">1</span>-&gt; Dakle, $q + <span class="hl num">1</span>$ je također prost i veći je od $p$.<span class="hl kwa">\qedhere</span>
+    <span class="hl kwa">\end</span><span class="hl opt">{</span>enumerate<span class="hl opt">}</span>
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>proof<span class="hl opt">}</span>   
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>    
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+  <span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Dva stupca<span class="hl opt">}</span>
+  <span class="hl kwa">\framesubtitle</span><span class="hl opt">{</span>Svaki je stupac centriran<span class="hl opt">}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>columns<span class="hl opt">}</span>
+    <span class="hl kwa">\column</span><span class="hl opt">{</span><span class="hl num">.5</span><span class="hl kwa">\textwidth</span><span class="hl opt">}</span>
+          <span class="hl kwa">\includegraphics</span><span class="hl opt">[</span>height=<span class="hl num">0.8</span><span class="hl kwa">\textheight</span><span class="hl opt">]{</span>Conium.jpg<span class="hl opt">}</span><span class="hl slc">%</span>
+    <span class="hl kwa">\column</span><span class="hl opt">{</span><span class="hl num">.5</span><span class="hl kwa">\textwidth</span><span class="hl opt">}</span>
+    <span class="hl kwa">\begin</span><span class="hl opt">{</span>itemize<span class="hl opt">}[</span>&lt;+-&gt;<span class="hl opt">]</span>
+    <span class="hl kwa">\item</span> Točka <span class="hl num">1</span>
+    <span class="hl kwa">\item</span> Točka <span class="hl num">2</span>
+    <span class="hl kwa">\end</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>
+    <span class="hl kwa">\onslide</span>&lt;<span class="hl num">3</span>-&gt;<span class="hl opt">{</span> 
+    <span class="hl kwa">\begin</span><span class="hl opt">{</span>block<span class="hl opt">}{</span>Još jedna kutija<span class="hl opt">}</span>
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+    <span class="hl kwa">\end</span><span class="hl opt">{</span>block<span class="hl opt">}</span>
+    <span class="hl opt">}</span>
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>columns<span class="hl opt">}</span>
+<span class="hl kwa">\transdissolve</span>&lt;<span class="hl num">3</span>&gt;
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>K\^od za prethodni slajd<span class="hl opt">}</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>columns<span class="hl opt">}</span>
+    <span class="hl kwa">\column</span><span class="hl opt">{</span><span class="hl num">.5</span><span class="hl kwa">\textwidth</span><span class="hl opt">}</span>
+          <span class="hl kwa">\includegraphics</span><span class="hl opt">[</span>height=<span class="hl num">0.8</span><span class="hl kwa">\textheight</span><span class="hl opt">]{</span>Conium.jpg<span class="hl opt">}</span><span class="hl slc">%</span>
+    <span class="hl kwa">\column</span><span class="hl opt">{</span><span class="hl num">.5</span><span class="hl kwa">\textwidth</span><span class="hl opt">}</span>
+    <span class="hl kwa">\begin</span><span class="hl opt">{</span>itemize<span class="hl opt">}[</span>&lt;+-&gt;<span class="hl opt">]</span>
+    <span class="hl kwa">\item</span> Točka <span class="hl num">1</span>
+    <span class="hl kwa">\item</span> Točka <span class="hl num">2</span>
+    <span class="hl kwa">\end</span><span class="hl opt">{</span>itemize<span class="hl opt">}</span>
+    <span class="hl kwa">\onslide</span>&lt;<span class="hl num">3</span>-&gt;<span class="hl opt">{</span> 
+    <span class="hl kwa">\begin</span><span class="hl opt">{</span>block<span class="hl opt">}{</span>Još jedna kutija<span class="hl opt">}</span>
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+    <span class="hl kwa">\end</span><span class="hl opt">{</span>block<span class="hl opt">}</span>
+    <span class="hl opt">}</span>
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>columns<span class="hl opt">}</span>
+<span class="hl kwa">\transdissolve</span>&lt;<span class="hl num">3</span>&gt;
+<span class="hl kwa">\end</span><span class="hl opt">{</span>columns<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>    
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+  <span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Dva stupca<span class="hl opt">}</span>
+  <span class="hl kwa">\framesubtitle</span><span class="hl opt">{</span>Vrhovi stupaca su centrirani<span class="hl opt">}</span>
+  <span class="hl kwa">\begin</span><span class="hl opt">{</span>columns<span class="hl opt">}[</span>t<span class="hl opt">]</span>
+    <span class="hl kwa">\column</span><span class="hl opt">{</span><span class="hl num">.5</span><span class="hl kwa">\textwidth</span><span class="hl opt">}</span>
+     <span class="hl kwa">\begin</span><span class="hl opt">{</span>block<span class="hl opt">}{</span>Kutija<span class="hl opt">}</span>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+      <span class="hl kwa">\end</span><span class="hl opt">{</span>block<span class="hl opt">}</span>
+    <span class="hl kwa">\column</span><span class="hl opt">{</span><span class="hl num">.5</span><span class="hl kwa">\textwidth</span><span class="hl opt">}</span>
+      <span class="hl kwa">\begin</span><span class="hl opt">{</span>block<span class="hl opt">}{</span>Kutija<span class="hl opt">}</span>
+           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
+      <span class="hl kwa">\end</span><span class="hl opt">{</span>block<span class="hl opt">}</span>
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>columns<span class="hl opt">}</span>
+  <span class="hl kwa">\pause</span>
+
+  Vrhovi stupaca su centrirani zbog opcije <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{[</span>t<span class="hl opt">]}</span> -- format je <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> begin\<span class="hl opt">{</span>columns\<span class="hl opt">}[</span>t<span class="hl opt">]}</span>.
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+  Predefinirano je da je tekst u slajdu vertikalno centriran. 
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>t<span class="hl opt">]</span>
+  Ali ovaj nije ... razlog je opet opcija <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{[</span>t<span class="hl opt">]}</span> -- sada uz okolinu <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>frame<span class="hl opt">}</span>:
+  <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span><span class="hl kwa">\textbackslash</span> begin\<span class="hl opt">{</span>frame\<span class="hl opt">}[</span>t<span class="hl opt">]}</span>.
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>plain<span class="hl opt">]</span>
+  Trebate <span class="hl kwa">\alert</span><span class="hl opt">{</span>cijeli slajd<span class="hl opt">}</span> i ništa manje od toga? 
+
+  Ovdje se radi o opciji <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{[</span>plain<span class="hl opt">]}</span> -- opet uz okolinu <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>frame<span class="hl opt">}</span>.
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>
+  <span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Ostalo<span class="hl opt">}</span>
+Ukoliko se unutar slajda koriste okoline ili naredbe za prikazivanje manipulaciju tekstom (kao <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>lstlisting<span class="hl opt">}</span> ili slično) okolina <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>frame<span class="hl opt">}</span> treba imati opciju <span class="hl kwa">\textcolor</span><span class="hl opt">{</span>violet<span class="hl opt">}{</span>fragile<span class="hl opt">}</span>:
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]</span>   
+ <span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+ ili se može definirati nova okolina koja tu opciju ima automatski uključenu:
+ <span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\newenvironment</span><span class="hl opt">{</span>myframe<span class="hl opt">}[</span><span class="hl num">0</span><span class="hl opt">]</span> 
+  <span class="hl opt">{</span><span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}[</span>fragile<span class="hl opt">]}</span>
+  <span class="hl opt">{</span><span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}}</span>    
+  <span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span> 
+Beamer ima jako puno predefiniranih tema (stilova izgleda) koji se zovu po gradovima. Ova prezentacija koristi temu CambridgeUS. Sintaksa je 
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>
+<span class="hl kwa">\usetheme</span><span class="hl opt">{</span>CambridgeUS<span class="hl opt">}</span>    
+<span class="hl kwa">\end</span><span class="hl opt">{</span>lstlisting<span class="hl opt">}</span>  
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\section</span><span class="hl opt">{</span>Za kraj<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+<span class="hl kwa">\transwipe</span><span class="hl opt">[</span>direction=<span class="hl num">90</span>,duration=<span class="hl num">3</span><span class="hl opt">]</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Ostali paketi i klase koje vrijedi spomenuti<span class="hl opt">}</span>
+<span class="hl opt">{</span><span class="hl kwa">\Huge \textbf</span><span class="hl opt">{</span>Paketi<span class="hl opt">}</span>: biblatex, booktabs, cleveref, cool, coverpage, enumerate, fancyhdr, geometry, mathdesign, mathtools, microtype, nag, nicefrac, prettyref, siunitx, todonotes<span class="hl opt">}</span>
+
+<span class="hl kwa">\bigskip</span>
+
+<span class="hl opt">{</span><span class="hl kwa">\Huge \textbf</span><span class="hl opt">{</span>Klase<span class="hl opt">}</span>: KOMA, memoir<span class="hl opt">}</span>    
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+
+<span class="hl kwa">\begin</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+<span class="hl kwa">\frametitle</span><span class="hl opt">{</span>Zadatak za vježbu<span class="hl opt">}</span>
+    
+Kreirajte prezentaciju koja sadrži dva plutajuća objekta, bibliografiju, linkove unutrašnje i vanjske te neki k\^od.
+
+<span class="hl kwa">\end</span><span class="hl opt">{</span>frame<span class="hl opt">}</span>
+<span class="hl kwa">\end</span><span class="hl opt">{</span><span class="hl kwb">document</span><span class="hl opt">}</span>
+</pre>
+</body>
+</html>
+<!--HTML generated by highlight 3.27, http://www.andre-simon.de/-->
