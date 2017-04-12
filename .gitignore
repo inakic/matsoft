@@ -20,3 +20,13 @@
 *.aux
 
 .ipynb_checkpoints/Numpy-checkpoint.ipynb
+
+*.fls
+
+*.bbl
+
+*.bcf
+
+*.blg
+
+P1.html
